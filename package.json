@@ -1,0 +1,27 @@
+{
+    "name": "_",
+    "description": "Object-Array Helpers",
+    "version": "0.0.1",
+    "author": "Alexander Kit <alex.kit@atmajs.com>",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tenbits/_.git"
+    },
+    "bugs": {
+        "url": "https://github.com/tenbits/_/issues"
+    },
+    "licenses": [
+        "MIT"
+    ],
+    "main": "lib/_.min.js",
+    "devDependencies": {
+        "atma": ">0.9.26"
+    },
+    "scripts": {
+        "test": "atma test"
+    },
+    "keywords": [],
+    "engines": {
+        "node": "~0.8.9"
+    }
+}
