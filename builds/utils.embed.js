@@ -1,4 +1,8 @@
+// import /src/coll.js
+
 // import /src/polyfill/arr.js
+// import /src/polyfill/str.js
+// import /src/polyfill/fn.js
 
 // import /src/is.js
 // import /src/obj.js

@@ -17,7 +17,7 @@ var is_Function,
 		return arr != null
 			&& typeof arr === 'object'
 			&& typeof arr.length === 'number'
-			&& typeof arr.splice === 'function'
+			&& typeof arr.slice === 'function'
 			;
 	};
 	is_String = function(x) {
