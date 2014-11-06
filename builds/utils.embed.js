@@ -8,5 +8,6 @@
 // import /src/obj.js
 // import /src/arr.js
 // import /src/fn.js
+// import /src/class.js
 
 // import /src/refs.js
