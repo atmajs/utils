@@ -1,6 +1,7 @@
 var obj_getProperty,
 	obj_setProperty,
 	obj_extend,
+	obj_extendMany,
 	obj_create;
 (function(){
 	obj_getProperty = function(obj, path){
@@ -38,6 +39,14 @@ var obj_getProperty,
 		
 		for(var key in b){
 			a[key] = b[key];
+		}
+		return a;
+	};
+	obj_extendMany = function(a){
+		var imax = arguments.length,
+			i = 1;
+		for(; i<imax; i++) {
+			a = obj_extend(a, arguments[i]);
 		}
 		return a;
 	};

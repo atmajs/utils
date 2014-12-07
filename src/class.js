@@ -1,3 +1,10 @@
+/**
+ * ([...Base], Proto)
+ * Base: Function | Object
+ * Proto: Object {
+ *    constructor: ?Function
+ *    ...
+ */
 var class_create;
 (function(){
 	class_create = function () {

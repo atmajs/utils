@@ -1,10 +1,13 @@
 Util Functions
 ----
 
+_**Embeddable**_: all functions are in the toplevel scope.
+
 - Object
 	- `obj_getProperty(obj, path)`
 	- `obj_setProperty(obj, path, val)`
 	- `obj_extend(a, b)`
+	- `obj_extendMany(a, [ ...args])`
 	- `obj_create(obj)`
 - Array
 	- `arr_remove`
@@ -19,6 +22,15 @@ Util Functions
 	- `is_ArrayLike(x)`
 	- `is_Object(x)`
 	- `is_rawObject(x)`
+
+- class
+	- `class_create([...Base:Function|Object], Proto:Object)`
+	```javascript
+	Proto := Object {
+		constructor: Function,
+		...
+	}
+	```
 
 - Prototype fn references
 	- `_Array_slice`
