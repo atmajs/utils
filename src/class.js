@@ -23,7 +23,7 @@ var class_create;
 		while ( --i > -1 ) {
 			x = args[i];
 			if (typeof x === 'function') {
-				if (Ctor == null && BaseCtor == null) 
+				if (BaseCtor == null) 
 					BaseCtor = x;
 				
 				x = x.prototype;
@@ -41,10 +41,20 @@ var class_create;
 		Proto.Parent = Parent
 		
 		if (Ctor == null)  {
+			Ctor = BaseCtor == null
+				? function(){}
+				: function(){
+					return BaseCtor.apply(this, _Array_slice.call(arguments));
+				};
+		}
+		else if (BaseCtor) {
+			var _Ctor = Ctor;
 			Ctor = function(){
-				var args = _Array_slice.call(arguments);
-				if (BaseCtor)
-					return BaseCtor.apply(this, args);
+				var args = _Array_slice.call(arguments)
+				var x = BaseCtor.apply(this, args);
+				if (x !== void 0) 
+					return x;
+				return _Ctor.apply(this, args);
 			};
 		}
 		
