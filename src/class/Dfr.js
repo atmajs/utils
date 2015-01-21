@@ -12,6 +12,7 @@ var class_Dfr;
 		defer: function(){
 			this._rejected = null;
 			this._resolved = null;
+			return this;
 		},
 		isResolved: function(){
 			return this._resolved != null;
