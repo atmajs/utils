@@ -58,6 +58,7 @@ var class_create;
 			};
 		}
 		
+		Proto.constructor = Ctor;
 		Ctor.prototype = Proto;
 		return Ctor;
 	};
