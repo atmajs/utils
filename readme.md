@@ -25,13 +25,18 @@ _**Embeddable**_: all functions are in the toplevel scope.
 
 - class
 	- `class_create([...Base:Function|Object], Proto:Object)`
-	```javascript
-	Proto := Object {
-		constructor: Function,
-		...
-	}
-	```
-
+	
+		```javascript
+		Proto := Object {
+			constructor: Function,
+			...
+		}
+		```
+		
+	- `class_createEx`
+		
+		Similar to `class_create` but also handles the property accessors. The `class_create` is in this way much more simple and has better performance.
+	
 - Prototype fn references
 	- `_Array_slice`
 	- `_Array_splice`
@@ -40,4 +45,4 @@ _**Embeddable**_: all functions are in the toplevel scope.
 
 ----
 
-:copyright: MIT Atma.js
+:copyright: 2015 - MIT - Atma.js
