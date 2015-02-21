@@ -1,3 +1,5 @@
+// import /src/refs.js
+
 // import /src/coll.js
 
 // import /src/polyfill/arr.js
@@ -12,4 +14,3 @@
 
 // import /src/class/Dfr.js
 
-// import /src/refs.js

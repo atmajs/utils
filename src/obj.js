@@ -2,6 +2,7 @@ var obj_getProperty,
 	obj_setProperty,
 	obj_extend,
 	obj_extendMany,
+	obj_extendProperties,
 	obj_create;
 (function(){
 	obj_getProperty = function(obj, path){
@@ -42,6 +43,32 @@ var obj_getProperty,
 		}
 		return a;
 	};
+	obj_extendProperties = (function(){
+		if (_Object_getOwnProp == null) 
+			return obj_extend;
+		
+		return function(a, b){
+			if (b == null)
+				return a || {};
+			
+			if (a == null)
+				return obj_create(b);
+			
+			var key, descr;
+			for(key in b){
+				descr = _Object_getOwnProp(b, key);
+				if (descr == null) 
+					continue;
+				
+				if (descr.hasOwnProperty('value')) {
+					a[key] = descr.value;
+					continue;
+				}
+				_Object_defineProperty(a, key, descr);
+			}
+			return a;
+		};
+	}());
 	obj_extendMany = function(a){
 		var imax = arguments.length,
 			i = 1;
@@ -50,7 +77,8 @@ var obj_getProperty,
 		}
 		return a;
 	};
-	obj_create = Object.create || function(x) {
+	
+	_Object_create = obj_create = Object.create || function(x) {
 		var Ctor = function(){};
 		Ctor.prototype = x;
 		return new Ctor;
