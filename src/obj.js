@@ -1,6 +1,7 @@
 var obj_getProperty,
 	obj_setProperty,
 	obj_extend,
+	obj_extendDefaults,
 	obj_extendMany,
 	obj_extendProperties,
 	obj_create;
@@ -43,6 +44,18 @@ var obj_getProperty,
 		}
 		return a;
 	};
+	obj_extendDefaults = function(a, b){
+		if (b == null) 
+			return a || {};
+		if (a == null) 
+			return obj_create(b);
+		
+		for(var key in b) {
+			if (a[key] == null) 
+				a[key] = b[key];
+		}
+		return a;
+	}
 	obj_extendProperties = (function(){
 		if (_Object_getOwnProp == null) 
 			return obj_extend;
