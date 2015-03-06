@@ -4,7 +4,9 @@ var is_Function,
 	is_String,
 	is_Object,
 	is_notEmptyString,
-	is_rawObject;
+	is_rawObject,
+	is_NODE,
+	is_DOM;
 
 (function() {
 	is_Function = function(x) {
@@ -32,4 +34,8 @@ var is_Function,
 
 		return obj.constructor === Object;
 	};
+
+	is_DOM = typeof window !== 'undefined' && window.navigator != null;
+	is_NODE = !is_DOM;
+	
 }());
