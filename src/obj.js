@@ -4,7 +4,8 @@ var obj_getProperty,
 	obj_extendDefaults,
 	obj_extendMany,
 	obj_extendProperties,
-	obj_create;
+	obj_create,
+	obj_toFastProps;
 (function(){
 	obj_getProperty = function(obj, path){
 		if ('.' === path) // obsolete
@@ -90,7 +91,14 @@ var obj_getProperty,
 		}
 		return a;
 	};
-	
+	obj_toFastProps = function(obj){
+		/*jshint -W027*/
+		function F() {}
+		F.prototype = obj;
+		new F();
+		return;
+		eval(obj);
+	};
 	_Object_create = obj_create = Object.create || function(x) {
 		var Ctor = function(){};
 		Ctor.prototype = x;
