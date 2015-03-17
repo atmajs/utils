@@ -17,23 +17,25 @@ var class_create,
 		if (Proto == null) 
 			Proto = {};
 		
-		var Ctor, BaseCtor, x;
-		if (Proto.hasOwnProperty('constructor')) {
-			Ctor = Proto.constructor;
-		}
+		var BaseCtor, x;
 		
+		
+		var Ctor = Proto.hasOwnProperty('constructor')
+			? Proto.constructor
+			: function () {};
+			
 		var i = args.length;
 		while ( --i > -1 ) {
 			x = args[i];
 			if (typeof x === 'function') {
 				if (BaseCtor == null) 
-					BaseCtor = x;
+					BaseCtor = wrapBase(BaseCtor, x);
 				
 				x = x.prototype;
 			}
 			obj_extendDefaults(Proto, x);
 		}
-		return createClass(createCtor(Ctor, BaseCtor), Proto);
+		return createClass(wrapBase(BaseCtor, Ctor), Proto);
 	};
 	class_createEx = function(){
 		var args = _Array_slice.call(arguments),
@@ -49,12 +51,12 @@ var class_create,
 		while ( ++i < imax ) {
 			x = args[i];
 			if (typeof x === 'function') {
-				BaseCtor = x;
+				BaseCtor = wrapBase(BaseCtor, x);
 				x = x.prototype;
 			}
 			obj_extendProperties(Proto, x);
 		}
-		return createClass(createCtor(Ctor, BaseCtor), Proto);
+		return createClass(wrapBase(BaseCtor, Ctor), Proto);
 	};
 	
 	function createClass(Ctor, Proto) {
@@ -62,23 +64,19 @@ var class_create,
 		Ctor.prototype = Proto;
 		return Ctor;
 	}
-	function createCtor(Ctor, BaseCtor) {
-		if (Ctor == null) {
-			if (BaseCtor == null) {
-				return function Constructor() {};
-			}
-			return function(){
-				return BaseCtor.apply(this, _Array_slice.call(arguments));
-			};
-		}
+	function wrapBase(BaseCtor, Ctor) {
 		if (BaseCtor == null) {
 			return Ctor;
 		}
-		return function Constructor(){
-			var args = _Array_slice.call(arguments)
-			var x = BaseCtor.apply(this, args);
+		if (Ctor == null) {
+			return BaseCtor;
+		}
+		return function(){
+			var args = _Array_slice.call(arguments);
+			var x = BaseCtor.apply(this. args);
 			if (x !== void 0) 
 				return x;
+			
 			return Ctor.apply(this, args);
 		};
 	}
