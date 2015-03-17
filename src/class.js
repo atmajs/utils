@@ -71,7 +71,7 @@ var class_create,
 		}
 		return function(){
 			var args = _Array_slice.call(arguments);
-			var x = fnA.apply(this. args);
+			var x = fnA.apply(this, args);
 			if (x !== void 0) 
 				return x;
 			
