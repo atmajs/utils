@@ -1,6 +1,8 @@
 Util Functions
 ----
 
+[![Build Status](https://travis-ci.org/atmajs/utils.png?branch=master)](https://travis-ci.org/atmajs/utils)
+
 _**Embeddable**_: all functions are in the toplevel scope.
 
 - Object
@@ -36,6 +38,14 @@ _**Embeddable**_: all functions are in the toplevel scope.
 	- `class_createEx`
 		
 		Similar to `class_create` but also handles the property accessors. The `class_create` is in this way much more simple and has better performance.
+	
+	- `class_Dfr`
+		
+		Promise
+		
+	- `class_EventEmitter`
+	
+		Event Emitter
 	
 - Prototype fn references
 	- `_Array_slice`
