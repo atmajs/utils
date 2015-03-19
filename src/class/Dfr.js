@@ -114,8 +114,8 @@ var class_Dfr;
 						break;
 				}
 			}
-			done && this.done(dfr.resolveDelegate());
-			fail && this.fail(dfr.rejectDelegate());
+			done && this.done(delegate(dfr, 'resolve'));
+			fail && this.fail(delegate(dfr, 'reject' ));
 			
 			function pipe(dfr, method) {
 				return function(){
@@ -123,7 +123,6 @@ var class_Dfr;
 				};
 			}
 			function delegate(dfr, name, fn) {
-				
 				return function(){
 					if (fn != null) {
 						var override = fn.apply(this, arguments);
@@ -161,7 +160,12 @@ var class_Dfr;
 		if (ctx == null) 
 			ctx = dfr;
 		
-		fn.call(ctx, dfr.resolveDelegate(), dfr.rejectDelegate(), dfr);
+		fn.call(
+			ctx
+			, fn_proxy(dfr.resolve, ctx)
+			, fn_proxy(dfr.reject, dfr)
+			, dfr
+		);
 		return dfr;
 	};
 	
