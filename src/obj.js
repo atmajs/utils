@@ -1,5 +1,6 @@
 var obj_getProperty,
 	obj_setProperty,
+	obj_hasProperty,
 	obj_extend,
 	obj_extendDefaults,
 	obj_extendMany,
@@ -32,6 +33,10 @@ var obj_getProperty,
 			obj = obj[key];
 		}
 		obj[chain[i]] = val;
+	};
+	obj_hasProperty = function(obj, path) {
+		var x = obj_getProperty(obj, path);
+		return x !== void 0;
 	};
 	obj_extend = function(a, b){
 		if (b == null)
