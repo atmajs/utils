@@ -11,7 +11,7 @@ var class_create,
 	class_createEx;
 (function(){
 	
-	class_create   = function(){
+	class_create = function(){
 		var args = _Array_slice.call(arguments),
 			Proto = args.pop();
 		if (Proto == null) 

@@ -46,7 +46,13 @@ _**Embeddable**_: all functions are in the toplevel scope.
 	- `class_EventEmitter`
 	
 		Event Emitter
-	
+
+- error
+	- `error_createClass(name:String, Proto:Object):Function`
+	- `error_formatSource(source:String, index:Number, ?filename:String):String`
+	- `error_cursor(source:String, index:Number):Array<lines, lineNum, rowNum>`
+	- `error_formatCursor(lines:Array, lineNum: Number, rowNum: Number):String`
+
 - Prototype fn references
 	- `_Array_slice`
 	- `_Array_splice`

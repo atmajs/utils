@@ -10,7 +10,9 @@
 // import /src/obj.js
 // import /src/arr.js
 // import /src/fn.js
+// import /src/str.js
 // import /src/class.js
+// import /src/error.js
 
 // import /src/class/Dfr.js
 // import /src/class/EventEmitter.js
