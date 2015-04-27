@@ -19,7 +19,7 @@ var class_create,
 		
 		var Ctor = Proto.hasOwnProperty('constructor')
 			? Proto.constructor
-			: function () {};
+			: function ClassCtor () {};
 		
 		var i = args.length,
 			BaseCtor, x;

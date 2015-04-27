@@ -21,9 +21,9 @@ var error_createClass,
 			rowNum  = cursor[2],
 			str = '';
 		if (filename != null) {
-			str += str_format(' at {0}({1}:{2})', filename, lineNum, rowNum);
+			str += str_format(' at {0}({1}:{2})\n', filename, lineNum, rowNum);
 		}
-		return str + '\n' + error_formatCursor(cursor);
+		return str + error_formatCursor(lines, lineNum, rowNum);
 	};
 	
 	/**
@@ -41,11 +41,11 @@ var error_createClass,
 	};
 	
 	(function(){
-		error_formatCursor = function(lines, line, row) {
+		error_formatCursor = function(lines, lineNum, rowNum) {
 				
 			var BEFORE = 3,
 				AFTER  = 2,
-				i = (line - 1) - BEFORE,
+				i = lineNum - BEFORE,
 				imax   = i + BEFORE + AFTER,
 				str  = '';
 			
@@ -61,9 +61,9 @@ var error_createClass,
 				lineNumber = ensureLength(i + 1, lineNumberLength);
 				str += lineNumber + '|' + lines[i];
 				
-				if (i + 1 === line) {
+				if (i + 1 === lineNum) {
 					str += '\n' + repeat(' ', lineNumberLength + 1);
-					str += lines[i].substring(0, row - 1).replace(/[^\s]/g, ' ');
+					str += lines[i].substring(0, rowNum - 1).replace(/[^\s]/g, ' ');
 					str += '^';
 				}
 			}
