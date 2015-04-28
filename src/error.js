@@ -4,8 +4,8 @@ var error_createClass,
 	error_cursor;
 	
 (function(){
-	error_createClass = function(name, Proto){
-		var Ctor = _createCtor(Proto);
+	error_createClass = function(name, Proto, stackSliceFrom){
+		var Ctor = _createCtor(Proto, stackSliceFrom);
 		Ctor.prototype = new Error;
 		
 		Proto.constructor = Error;
@@ -86,26 +86,29 @@ var error_createClass,
 		}
 	}());
 	
-	function _createCtor(Proto){
+	function _createCtor(Proto, stackFrom){
 		var Ctor = Proto.hasOwnProperty('constructor')
 			? Proto.constructor
 			: null;
 			
 		return function(){
-			this.stack   = _prepairStack();
-			this.message = str_format.apply(this, arguments);
-			
+			obj_defineProperty(this, 'stack', {
+				value: _prepairStack(stackFrom || 3)
+			});
+			obj_defineProperty(this, 'message', {
+				value: str_format.apply(this, arguments)
+			});
 			if (Ctor != null) {
 				Ctor.apply(this, arguments);
 			}
 		};
 	}
 	
-	function _prepairStack() {
+	function _prepairStack(sliceFrom) {
 		var stack = new Error().stack;
 		return stack == null ? null : stack
 			.split('\n')
-			.slice(3)
+			.slice(sliceFrom)
 			.join('\n');
 	}
 	

@@ -6,13 +6,15 @@ var obj_getProperty,
 	obj_extendMany,
 	obj_extendProperties,
 	obj_create,
-	obj_toFastProps;
+	obj_toFastProps,
+	obj_defineProperty;
 (function(){
-	obj_getProperty = function(obj, path){
+	obj_getProperty = function(obj_, path){
 		if ('.' === path) // obsolete
-			return obj;
+			return obj_;
 		
-		var chain = path.split('.'),
+		var obj = obj_,
+			chain = path.split('.'),
 			imax = chain.length,
 			i = -1;
 		while ( obj != null && ++i < imax ) {
@@ -20,8 +22,9 @@ var obj_getProperty,
 		}
 		return obj;
 	};
-	obj_setProperty = function(obj, path, val) {
-		var chain = path.split('.'),
+	obj_setProperty = function(obj_, path, val) {
+		var obj = obj_,
+			chain = path.split('.'),
 			imax = chain.length - 1,
 			i = -1,
 			key;
@@ -37,6 +40,29 @@ var obj_getProperty,
 	obj_hasProperty = function(obj, path) {
 		var x = obj_getProperty(obj, path);
 		return x !== void 0;
+	};
+	obj_defineProperty = function(obj, path, dscr) {
+		var x = obj,
+			chain = path.split('.'),
+			imax = chain.length - 1,
+			i = -1, key;
+		while (++i < imax) {
+			key = chain[i];
+			if (x[key] == null) 
+				x[key] = {};
+			x = x[key];
+		}
+		key = chain[imax];
+		if (_Object_defineProperty) {
+			if (dscr.writable     === void 0) dscr.writable     = true;
+			if (dscr.configurable === void 0) dscr.configurable = true;
+			if (dscr.enumerable   === void 0) dscr.enumerable   = true;
+			_Object_defineProperty(x, key, dscr);
+			return;
+		}
+		x[key] = dscr.value === void 0
+			? dscr.value
+			: (dscr.get && dscr.get());
 	};
 	obj_extend = function(a, b){
 		if (b == null)
