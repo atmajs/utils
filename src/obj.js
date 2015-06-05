@@ -5,6 +5,7 @@ var obj_getProperty,
 	obj_extendDefaults,
 	obj_extendMany,
 	obj_extendProperties,
+	obj_extendPropertiesDefaults,
 	obj_create,
 	obj_toFastProps,
 	obj_defineProperty;
@@ -88,9 +89,9 @@ var obj_getProperty,
 		}
 		return a;
 	}
-	obj_extendProperties = (function(){
+	var extendPropertiesFactory = function(overwriteProps){
 		if (_Object_getOwnProp == null) 
-			return obj_extend;
+			return overwriteProps ? obj_extend : obj_extendDefaults;
 		
 		return function(a, b){
 			if (b == null)
@@ -99,12 +100,17 @@ var obj_getProperty,
 			if (a == null)
 				return obj_create(b);
 			
-			var key, descr;
+			var key, descr, ownDescr;
 			for(key in b){
 				descr = _Object_getOwnProp(b, key);
 				if (descr == null) 
 					continue;
-				
+				if (overwriteProps !== true) {
+					ownDescr = _Object_getOwnProp(a, key);
+					if (ownDescr != null) {
+						continue;
+					}
+				}
 				if (descr.hasOwnProperty('value')) {
 					a[key] = descr.value;
 					continue;
@@ -113,7 +119,11 @@ var obj_getProperty,
 			}
 			return a;
 		};
-	}());
+	};
+	
+	obj_extendProperties         = extendPropertiesFactory(true);
+	obj_extendPropertiesDefaults = extendPropertiesFactory(false );
+	
 	obj_extendMany = function(a){
 		var imax = arguments.length,
 			i = 1;

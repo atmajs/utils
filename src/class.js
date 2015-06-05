@@ -52,7 +52,7 @@ var class_create,
 				BaseCtor = wrapFn(BaseCtor, x);
 				x = x.prototype;
 			}
-			obj_extendProperties(Proto, x);
+			obj_extendPropertiesDefaults(Proto, x);
 		}
 		return createClass(wrapFn(BaseCtor, Ctor), Proto);
 	};
