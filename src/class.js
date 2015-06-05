@@ -11,51 +11,33 @@ var class_create,
 	class_createEx;
 (function(){
 	
-	class_create = function(){
-		var args = _Array_slice.call(arguments),
-			Proto = args.pop();
-		if (Proto == null) 
-			Proto = {};
-		
-		var Ctor = Proto.hasOwnProperty('constructor')
-			? Proto.constructor
-			: function ClassCtor () {};
-		
-		var i = args.length,
-			BaseCtor, x;
-		while ( --i > -1 ) {
-			x = args[i];
-			if (typeof x === 'function') {
-				BaseCtor = wrapFn(x, BaseCtor);
-				x = x.prototype;
-			}
-			obj_extendDefaults(Proto, x);
-		}
-		return createClass(wrapFn(BaseCtor, Ctor), Proto);
-	};
-	class_createEx = function(){
-		var args = _Array_slice.call(arguments),
-			Proto = args.pop();
-		if (Proto == null) 
-			Proto = {};
-		
-		var Ctor = Proto.hasOwnProperty('constructor')
-			? Proto.constructor
-			: function () {};
+	class_create   = createClassFactory(obj_extendDefaults);
+	class_createEx = createClassFactory(obj_extendPropertiesDefaults);
+	
+	function createClassFactory(extendDefaultsFn) {
+		return function(){
+			var args = _Array_slice.call(arguments),
+				Proto = args.pop();
+			if (Proto == null) 
+				Proto = {};
 			
-		var imax = args.length,
-			i = -1,
-			BaseCtor, x;
-		while ( ++i < imax ) {
-			x = args[i];
-			if (typeof x === 'function') {
-				BaseCtor = wrapFn(BaseCtor, x);
-				x = x.prototype;
+			var Ctor = Proto.hasOwnProperty('constructor')
+				? Proto.constructor
+				: function ClassCtor () {};
+			
+			var i = args.length,
+				BaseCtor, x;
+			while ( --i > -1 ) {
+				x = args[i];
+				if (typeof x === 'function') {
+					BaseCtor = wrapFn(x, BaseCtor);
+					x = x.prototype;
+				}
+				extendDefaultsFn(Proto, x);
 			}
-			obj_extendPropertiesDefaults(Proto, x);
-		}
-		return createClass(wrapFn(BaseCtor, Ctor), Proto);
-	};
+			return createClass(wrapFn(BaseCtor, Ctor), Proto);
+		};
+	}
 	
 	function createClass(Ctor, Proto) {
 		Proto.constructor = Ctor;
