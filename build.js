@@ -10,7 +10,7 @@ module.exports = {
 		output: 'lib/'
 	},
 	'jshint': {
-		files: ['lib/utils.embed.js'],
+		files: ['lib/utils.js'],
 		jshint: JSHint()
 	},
 	

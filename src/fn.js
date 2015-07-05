@@ -1,7 +1,7 @@
 var fn_proxy,
 	fn_apply,
 	fn_doNothing,
-	fn_patternDelegate;
+	fn_createByPattern;
 (function(){
 	fn_proxy = function(fn, ctx) {
 		return function(){
@@ -29,7 +29,7 @@ var fn_proxy,
 		return false;
 	};
 	
-	fn_patternDelegate = function(definitions, ctx){
+	fn_createByPattern = function(definitions, ctx){
 		var imax = definitions.length;
 		return function(){
 			var l = arguments.length,
@@ -57,7 +57,4 @@ var fn_proxy,
 		};
 	};
 	
-	function pattern_Match(pattern, val){
-		return pattern(val);
-	}
 }());

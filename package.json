@@ -1,7 +1,7 @@
 {
-    "name": "_",
-    "description": "Object-Array Helpers",
-    "version": "0.0.1",
+    "name": "atma-utils",
+    "description": "Helpers",
+    "version": "0.0.2",
     "author": "Alexander Kit <alex.kit@atmajs.com>",
     "repository": {
         "type": "git",
@@ -13,7 +13,7 @@
     "licenses": [
         "MIT"
     ],
-    "main": "lib/_.min.js",
+    "main": "lib/utils.js",
     "devDependencies": {
         "atma": ">0.9.26"
     },
@@ -21,9 +21,6 @@
         "test": "atma test"
     },
     "keywords": [],
-    "engines": {
-        "node": "~0.8.9"
-    },
     "dependencies": {
         "atma-loader-babel": ">0.0.0"
     },
