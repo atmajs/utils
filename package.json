@@ -19,7 +19,9 @@
         "atma-loader-babel": ">0.0.0"
     },
     "scripts": {
-        "test": "atma test"
+        "test": "atma test",
+        "build": "atma",
+        "release": "atma release"
     },
     "keywords": [],
     "atma": {

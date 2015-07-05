@@ -5,11 +5,11 @@ Util Functions
 
 #### Embeddable
 	
-	- `lib/utils.embed.js` All functions are in the top-level scope.
+- `lib/utils.embed.js` All functions are in the top-level scope.
 	
 #### Module
 
-	- All functions are wrapped to an object, e.g. `require('atma-utils').obj_getProperty`
+- All functions are wrapped to an object, e.g. `require('atma-utils').obj_getProperty`
 
 ## Functions
 
@@ -67,6 +67,37 @@ Util Functions
 	- `_Array_indexOf`
 	- `_Obj_hasOwnProp_`
 
+
+# Build
+
+```bash
+$ npm install
+$ npm run build
+```
+
+# Release
+
+- Bump
+- Builds
+- Commit `release` branch
+- Push/Pulblish:
+	- to `git`
+	- to `npm`
+
+```bash
+$ npm install
+$ npm run release
+```
+
+# Test 
+
+```bash
+$ npm install
+$ npm test
+```
+
 ----
+
+
 
 :copyright: 2015 - MIT - Atma.js
