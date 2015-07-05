@@ -152,7 +152,15 @@ var class_Dfr;
 				var args = _Array_slice.call(arguments, 1);
 				fn_apply(self.resolve, self, args);
 			};
-		}
+		},
+		resolveDelegate: function(){
+			return fn_proxy(this.resolve, this);
+		},
+		
+		rejectDelegate: function(){
+			return fn_proxy(this.reject, this);
+		},
+		
 	};
 	
 	class_Dfr.run = function(fn, ctx){

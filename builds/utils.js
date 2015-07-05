@@ -1,19 +1,22 @@
 (function(factory){
 	
-	var exports = typeof module != null && typeof exports != null
-		? exports : null;
-		
-	if (exports == null) {
-		exports = window.Utils = {};
+	var owner, property;
+	if (typeof module !== 'undefined' && module.exports) {
+		owner = module;
+		property = 'exports';
+	}
+	else {
+		owner = window;
+		property = 'Utils';
 	}
 	
-	factory(exports);
+	factory(owner, property);
 	
-}(function(exports){
+}(function(owner, property){
 	
 	// import utils.embed.js
 	
-	exports = {
+	owner[property] = {
 		class: {
 			Deferred: class_Dfr,
 			EventEmitter: class_EventEmitter,

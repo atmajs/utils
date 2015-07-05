@@ -1,7 +1,7 @@
 var class_Uri;
 (function () {
 	
-	class_Uri = mask.class.create({
+	class_Uri = class_create({
 		protocol: null,		
 		value: null,
 		path: null,
