@@ -3,10 +3,9 @@ Util Functions
 
 [![Build Status](https://travis-ci.org/atmajs/utils.png?branch=master)](https://travis-ci.org/atmajs/utils)
 
-
 #### Embeddable
 	
-	- `lib/utils.embed.js` All functions are in the toplevel scope.
+	- `lib/utils.embed.js` All functions are in the top-level scope.
 	
 #### Module
 
@@ -36,24 +35,24 @@ Util Functions
 
 - class
 	- `class_create([...Base:Function|Object], Proto:Object)`
-	
+
 		```javascript
 		Proto := Object {
 			constructor: Function,
 			...
 		}
 		```
-		
+
 	- `class_createEx`
-		
+
 		Similar to `class_create` but also handles the property accessors. The `class_create` is in this way much more simple and has better performance.
-	
+
 	- `class_Dfr`
-		
+
 		Promise
-		
+
 	- `class_EventEmitter`
-	
+
 		Event Emitter
 
 - error

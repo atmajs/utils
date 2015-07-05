@@ -11,10 +11,10 @@ var str_format;
 			}
 			str_ = str_.replace(rgxNum(i - 1), String(x));
 		}
-		
+
 		return str_;
 	};
-	
+
 	var rgxNum;
 	(function(){
 		rgxNum = function(num){

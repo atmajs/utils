@@ -8,7 +8,7 @@ var class_Dfr;
 		_always: null,
 		_resolved: null,
 		_rejected: null,
-		
+
 		defer: function(){
 			this._rejected = null;
 			this._resolved = null;
@@ -27,32 +27,32 @@ var class_Dfr;
 			var done = this._done,
 				always = this._always
 				;
-			
+
 			this._resolved = arguments;
-			
+
 			dfr_clearListeners(this);
 			arr_callOnce(done, this, arguments);
 			arr_callOnce(always, this, [ this ]);
-			
+
 			return this;
 		},
 		reject: function() {
 			var fail = this._fail,
 				always = this._always
 				;
-			
+
 			this._rejected = arguments;
-			
+
 			dfr_clearListeners(this);
 			arr_callOnce(fail, this, arguments);
-			arr_callOnce(always, this, [ this ]);	
+			arr_callOnce(always, this, [ this ]);
 			return this;
 		},
 		then: function(filterSuccess, filterError){
 			return this.pipe(filterSuccess, filterError);
 		},
 		done: function(callback) {
-			if (this._rejected != null) 
+			if (this._rejected != null)
 				return this;
 			return dfr_bind(
 				this,
@@ -62,7 +62,7 @@ var class_Dfr;
 			);
 		},
 		fail: function(callback) {
-			if (this._resolved != null) 
+			if (this._resolved != null)
 				return this;
 			return dfr_bind(
 				this,
@@ -87,14 +87,14 @@ var class_Dfr;
 					fail_ = arguments.length > 1
 						? arguments[1]
 						: null;
-					
+
 				this
 					.done(delegate(dfr, 'resolve', done_))
 					.fail(delegate(dfr, 'reject',  fail_))
 					;
 				return dfr;
 			}
-			
+
 			dfr = mix;
 			var imax = arguments.length,
 				done = imax === 1,
@@ -116,7 +116,7 @@ var class_Dfr;
 			}
 			done && this.done(delegate(dfr, 'resolve'));
 			fail && this.fail(delegate(dfr, 'reject' ));
-			
+
 			function pipe(dfr, method) {
 				return function(){
 					dfr[method].apply(dfr, arguments);
@@ -131,7 +131,7 @@ var class_Dfr;
 								override.pipe(dfr);
 								return;
 							}
-							
+
 							dfr[name](override)
 							return;
 						}
@@ -139,7 +139,7 @@ var class_Dfr;
 					dfr[name].apply(dfr, arguments);
 				};
 			}
-			
+
 			return this;
 		},
 		pipeCallback: function(){
@@ -162,12 +162,12 @@ var class_Dfr;
 		},
 		
 	};
-	
+
 	class_Dfr.run = function(fn, ctx){
 		var dfr = new class_Dfr();
-		if (ctx == null) 
+		if (ctx == null)
 			ctx = dfr;
-		
+
 		fn.call(
 			ctx
 			, fn_proxy(dfr.resolve, ctx)
@@ -176,49 +176,49 @@ var class_Dfr;
 		);
 		return dfr;
 	};
-	
+
 	// PRIVATE
-	
+
 	function dfr_bind(dfr, arguments_, listeners, callback){
-		if (callback == null) 
+		if (callback == null)
 			return dfr;
-		
-		if ( arguments_ != null) 
+
+		if ( arguments_ != null)
 			fn_apply(callback, dfr, arguments_);
-		else 
+		else
 			listeners.push(callback);
-		
+
 		return dfr;
 	}
-	
+
 	function dfr_clearListeners(dfr) {
 		dfr._done = null;
 		dfr._fail = null;
 		dfr._always = null;
 	}
-	
+
 	function arr_callOnce(arr, ctx, args) {
-		if (arr == null) 
+		if (arr == null)
 			return;
-		
+
 		var imax = arr.length,
 			i = -1,
 			fn;
 		while ( ++i < imax ) {
 			fn = arr[i];
-			
-			if (fn) 
+
+			if (fn)
 				fn_apply(fn, ctx, args);
 		}
 		arr.length = 0;
 	}
 	function isDeferred(x){
-		if (x == null || typeof x !== 'object') 
+		if (x == null || typeof x !== 'object')
 			return false;
-		
-		if (x instanceof class_Dfr) 
+
+		if (x instanceof class_Dfr)
 			return true;
-		
+
 		return typeof x.done === 'function'
 			&& typeof x.fail === 'function'
 			;

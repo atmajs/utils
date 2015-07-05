@@ -5,10 +5,10 @@
     "author": "Alexander Kit <alex.kit@atmajs.com>",
     "repository": {
         "type": "git",
-        "url": "https://github.com/tenbits/_.git"
+        "url": "https://github.com/atmajs/utils.git"
     },
     "bugs": {
-        "url": "https://github.com/tenbits/_/issues"
+        "url": "https://github.com/atmajs/utils/issues"
     },
     "licenses": [
         "MIT"
