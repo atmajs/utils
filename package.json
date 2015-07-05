@@ -1,7 +1,7 @@
 {
     "name": "atma-utils",
     "description": "Helpers",
-    "version": "0.0.3",
+    "version": "0.1.4",
     "author": "Alexander Kit <alex.kit@atmajs.com>",
     "repository": {
         "type": "git",
@@ -15,15 +15,13 @@
     ],
     "main": "lib/utils.js",
     "devDependencies": {
-        "atma": ">0.9.26"
+        "atma": ">0.9.26",
+        "atma-loader-babel": ">0.0.0"
     },
     "scripts": {
         "test": "atma test"
     },
     "keywords": [],
-    "dependencies": {
-        "atma-loader-babel": ">0.0.0"
-    },
     "atma": {
         "plugins": [
             "atma-loader-babel"
