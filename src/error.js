@@ -2,18 +2,18 @@ var error_createClass,
 	error_formatSource,
 	error_formatCursor,
 	error_cursor;
-	
+
 (function(){
 	error_createClass = function(name, Proto, stackSliceFrom){
 		var Ctor = _createCtor(Proto, stackSliceFrom);
 		Ctor.prototype = new Error;
-		
+
 		Proto.constructor = Error;
 		Proto.name = name;
 		obj_extend(Ctor.prototype, Proto);
 		return Ctor;
 	};
-	
+
 	error_formatSource = function(source, index, filename) {
 		var cursor  = error_cursor(source, index),
 			lines   = cursor[0],
@@ -25,7 +25,7 @@ var error_createClass,
 		}
 		return str + error_formatCursor(lines, lineNum, rowNum);
 	};
-	
+
 	/**
 	 * @returns [ lines, lineNum, rowNum ]
 	 */
@@ -39,28 +39,28 @@ var error_createClass,
 		}
 		return [str.split('\n'), line, row];
 	};
-	
+
 	(function(){
 		error_formatCursor = function(lines, lineNum, rowNum) {
-				
+
 			var BEFORE = 3,
 				AFTER  = 2,
 				i = lineNum - BEFORE,
 				imax   = i + BEFORE + AFTER,
 				str  = '';
-			
+
 			if (i < 0) i = 0;
 			if (imax > lines.length) imax = lines.length;
-			
+
 			var lineNumberLength = String(imax).length,
 				lineNumber;
-			
+
 			for(; i < imax; i++) {
 				if (str)  str += '\n';
-				
+
 				lineNumber = ensureLength(i + 1, lineNumberLength);
 				str += lineNumber + '|' + lines[i];
-				
+
 				if (i + 1 === lineNum) {
 					str += '\n' + repeat(' ', lineNumberLength + 1);
 					str += lines[i].substring(0, rowNum - 1).replace(/[^\s]/g, ' ');
@@ -69,7 +69,7 @@ var error_createClass,
 			}
 			return str;
 		};
-		
+
 		function ensureLength(num, count) {
 			var str = String(num);
 			while(str.length < count) {
@@ -85,12 +85,12 @@ var error_createClass,
 			return str;
 		}
 	}());
-	
+
 	function _createCtor(Proto, stackFrom){
 		var Ctor = Proto.hasOwnProperty('constructor')
 			? Proto.constructor
 			: null;
-			
+
 		return function(){
 			obj_defineProperty(this, 'stack', {
 				value: _prepairStack(stackFrom || 3)
@@ -103,7 +103,7 @@ var error_createClass,
 			}
 		};
 	}
-	
+
 	function _prepairStack(sliceFrom) {
 		var stack = new Error().stack;
 		return stack == null ? null : stack
@@ -111,5 +111,5 @@ var error_createClass,
 			.slice(sliceFrom)
 			.join('\n');
 	}
-	
+
 }());

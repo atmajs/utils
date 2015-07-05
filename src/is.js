@@ -46,5 +46,5 @@ var is_Function,
 	};
 	is_DOM = typeof window !== 'undefined' && window.navigator != null;
 	is_NODE = !is_DOM;
-	
+
 }());

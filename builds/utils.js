@@ -1,18 +1,18 @@
 (function(factory){
-	
+
 	var exports = typeof module != null && typeof exports != null
 		? exports : null;
-		
+
 	if (exports == null) {
 		exports = window.Utils = {};
 	}
-	
+
 	factory(exports);
-	
+
 }(function(exports){
-	
+
 	// import utils.embed.js
-	
+
 	exports = {
 		class: {
 			Deferred: class_Dfr,
@@ -47,9 +47,7 @@
 			create						: obj_create,
 			defineProperty				: obj_defineProperty
 		},
-		
 		is: {
-			
 			Function		: is_Function,
 			Array			: is_Array,
 			ArrayLike		: is_ArrayLike,
@@ -60,7 +58,7 @@
 			Date			: is_Date,
 			NODE			: is_NODE,
 			DOM				: is_DOM
-		}		
+		}
 	};
-	
+
 }));

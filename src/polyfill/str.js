@@ -3,7 +3,7 @@ if (String.prototype.trim == null){
 		var start = -1,
 			end = this.length,
 			code;
-		if (end === 0) 
+		if (end === 0)
 			return this;
 		while(++start < end){
 			code = this.charCodeAt(start);

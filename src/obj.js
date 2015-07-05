@@ -13,7 +13,7 @@ var obj_getProperty,
 	obj_getProperty = function(obj_, path){
 		if ('.' === path) // obsolete
 			return obj_;
-		
+
 		var obj = obj_,
 			chain = path.split('.'),
 			imax = chain.length,
@@ -31,9 +31,9 @@ var obj_getProperty,
 			key;
 		while ( ++i < imax ) {
 			key = chain[i];
-			if (obj[key] == null) 
+			if (obj[key] == null)
 				obj[key] = {};
-			
+
 			obj = obj[key];
 		}
 		obj[chain[i]] = val;
@@ -49,13 +49,13 @@ var obj_getProperty,
 			i = -1, key;
 		while (++i < imax) {
 			key = chain[i];
-			if (x[key] == null) 
+			if (x[key] == null)
 				x[key] = {};
 			x = x[key];
 		}
 		key = chain[imax];
 		if (_Object_defineProperty) {
-			if (dscr.writable     === void 0) dscr.writable     = true;
+			if (dscr.writable	 === void 0) dscr.writable	 = true;
 			if (dscr.configurable === void 0) dscr.configurable = true;
 			if (dscr.enumerable   === void 0) dscr.enumerable   = true;
 			_Object_defineProperty(x, key, dscr);
@@ -68,42 +68,42 @@ var obj_getProperty,
 	obj_extend = function(a, b){
 		if (b == null)
 			return a || {};
-		
+
 		if (a == null)
 			return obj_create(b);
-		
+
 		for(var key in b){
 			a[key] = b[key];
 		}
 		return a;
 	};
 	obj_extendDefaults = function(a, b){
-		if (b == null) 
+		if (b == null)
 			return a || {};
-		if (a == null) 
+		if (a == null)
 			return obj_create(b);
-		
+
 		for(var key in b) {
-			if (a[key] == null) 
+			if (a[key] == null)
 				a[key] = b[key];
 		}
 		return a;
 	}
 	var extendPropertiesFactory = function(overwriteProps){
-		if (_Object_getOwnProp == null) 
+		if (_Object_getOwnProp == null)
 			return overwriteProps ? obj_extend : obj_extendDefaults;
-		
+
 		return function(a, b){
 			if (b == null)
 				return a || {};
-			
+
 			if (a == null)
 				return obj_create(b);
-			
+
 			var key, descr, ownDescr;
 			for(key in b){
 				descr = _Object_getOwnProp(b, key);
-				if (descr == null) 
+				if (descr == null)
 					continue;
 				if (overwriteProps !== true) {
 					ownDescr = _Object_getOwnProp(a, key);
@@ -120,10 +120,10 @@ var obj_getProperty,
 			return a;
 		};
 	};
-	
-	obj_extendProperties         = extendPropertiesFactory(true);
+
+	obj_extendProperties		 = extendPropertiesFactory(true);
 	obj_extendPropertiesDefaults = extendPropertiesFactory(false );
-	
+
 	obj_extendMany = function(a){
 		var imax = arguments.length,
 			i = 1;

@@ -6,7 +6,7 @@ var arr_remove,
 (function(){
 	arr_remove = function(array, x){
 		var i = array.indexOf(x);
-		if (i === -1) 
+		if (i === -1)
 			return false;
 		array.splice(i, 1);
 		return true;
@@ -21,9 +21,9 @@ var arr_remove,
 		return arr.indexOf(x) !== -1;
 	};
 	arr_pushMany = function(arr, arrSource){
-		if (arrSource == null || arr == null || arr === arrSource) 
+		if (arrSource == null || arr == null || arr === arrSource)
 			return;
-		
+
 		var il = arr.length,
 			jl = arrSource.length,
 			j = -1

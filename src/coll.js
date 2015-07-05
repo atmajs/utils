@@ -5,11 +5,11 @@ var coll_each,
 	coll_find;
 (function(){
 	coll_each = function(coll, fn, ctx){
-		if (ctx == null) 
+		if (ctx == null)
 			ctx = coll;
-		if (coll == null) 
+		if (coll == null)
 			return coll;
-		
+
 		var imax = coll.length,
 			i = 0;
 		for(; i< imax; i++){
@@ -18,19 +18,19 @@ var coll_each,
 		return ctx;
 	};
 	coll_indexOf = function(coll, x){
-		if (coll == null) 
+		if (coll == null)
 			return -1;
 		var imax = coll.length,
 			i = 0;
 		for(; i < imax; i++){
-			if (coll[i] === x) 
+			if (coll[i] === x)
 				return i;
 		}
 		return -1;
 	};
 	coll_remove = function(coll, x){
 		var i = coll_indexOf(coll, x);
-		if (i === -1) 
+		if (i === -1)
 			return false;
 		coll.splice(i, 1);
 		return true;

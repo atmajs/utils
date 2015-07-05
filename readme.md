@@ -3,7 +3,7 @@ Util Functions
 
 [![Build Status](https://travis-ci.org/atmajs/utils.png?branch=master)](https://travis-ci.org/atmajs/utils)
 
-_**Embeddable**_: all functions are in the toplevel scope.
+_**Embeddable**_: all functions are in the top-level scope.
 
 - Object
 	- `obj_getProperty(obj, path)`
@@ -27,24 +27,24 @@ _**Embeddable**_: all functions are in the toplevel scope.
 
 - class
 	- `class_create([...Base:Function|Object], Proto:Object)`
-	
+
 		```javascript
 		Proto := Object {
 			constructor: Function,
 			...
 		}
 		```
-		
+
 	- `class_createEx`
-		
+
 		Similar to `class_create` but also handles the property accessors. The `class_create` is in this way much more simple and has better performance.
-	
+
 	- `class_Dfr`
-		
+
 		Promise
-		
+
 	- `class_EventEmitter`
-	
+
 		Event Emitter
 
 - error
