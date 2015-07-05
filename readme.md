@@ -3,7 +3,16 @@ Util Functions
 
 [![Build Status](https://travis-ci.org/atmajs/utils.png?branch=master)](https://travis-ci.org/atmajs/utils)
 
-_**Embeddable**_: all functions are in the toplevel scope.
+
+#### Embeddable
+	
+	- `lib/utils.embed.js` All functions are in the toplevel scope.
+	
+#### Module
+
+	- All functions are wrapped to an object, e.g. `require('atma-utils').obj_getProperty`
+
+## Functions
 
 - Object
 	- `obj_getProperty(obj, path)`
