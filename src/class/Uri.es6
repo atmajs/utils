@@ -113,10 +113,6 @@ var class_Uri;
 			if (typeof uri === 'string')
 				uri = new class_Uri(uri);
 
-			//if (uri.protocol !== this.protocol || uri.host !== this.host)
-			//	return this.toString();
-
-
 			if (this.path.indexOf(uri.path) === 0) {
 				// host folder
 				var p = this.path ? this.path.replace(uri.path, '') : '';
