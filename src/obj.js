@@ -84,8 +84,13 @@ var obj_getProperty,
 			return obj_create(b);
 
 		for(var key in b) {
-			if (a[key] == null)
+			if (a[key] == null) {
 				a[key] = b[key];
+				continue;
+			}
+			if (key === 'toString' && a[key] === Object.prototype.toString) {
+				a[key] = b[key];
+			}
 		}
 		return a;
 	}

@@ -5,7 +5,11 @@ var fn_proxy,
 (function(){
 	fn_proxy = function(fn, ctx) {
 		return function(){
-			return fn_apply(fn, ctx, arguments);
+			var imax = arguments.length,
+				args = new Array(imax),
+				i = 0;
+			for(; i<imax; i++) args[i] = arguments[i];
+			return fn_apply(fn, ctx, args);
 		};
 	};
 
