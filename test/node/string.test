@@ -7,7 +7,7 @@ UTest({
 			`;
 			eq_(str_dedent(Foo), 'one\ntwo');
 		},
-		'!first line space' () {
+		'first line space' () {
 			var Foo = `
 				 one
 				two
