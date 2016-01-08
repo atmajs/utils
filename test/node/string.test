@@ -19,7 +19,7 @@ UTest({
 				one
 				 two
 			`;
-			eq_(str_dedent(Foo), ' one\n two');
+			eq_(str_dedent(Foo), 'one\n two');
 		}
 	} 
 })
