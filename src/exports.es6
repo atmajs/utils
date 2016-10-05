@@ -38,5 +38,8 @@ owner[property] = {
 	is_rawObject,
 	is_Date,
 	is_NODE,
-	is_DOM
+	is_DOM,
+
+	str_format,
+	str_dedent
 };
