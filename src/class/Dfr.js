@@ -126,9 +126,9 @@ var class_Dfr;
 				return function(){
 					if (fn != null) {
 						var override = fn.apply(this, arguments);
-						if (override != null) {
-							if (isDeferred(override) === true) {
-								override.pipe(dfr);
+						if (override != null && override !== dfr) {
+							if (isDeferred(override)) {
+								override.then(delegate(dfr, 'resolve'), delegate(dfr, 'reject'));
 								return;
 							}
 
@@ -213,14 +213,9 @@ var class_Dfr;
 		arr.length = 0;
 	}
 	function isDeferred(x){
-		if (x == null || typeof x !== 'object')
-			return false;
-
-		if (x instanceof class_Dfr)
-			return true;
-
-		return typeof x.done === 'function'
-			&& typeof x.fail === 'function'
-			;
+		return x != null 
+			&& typeof x === 'object' 
+			&& is_Function(x.then)
+		;
 	}
 }());
