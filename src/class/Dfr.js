@@ -1,6 +1,10 @@
 var class_Dfr;
 (function(){
-	class_Dfr = function(){};
+	class_Dfr = function(mix){
+		if (typeof mix === 'function') {
+			return class_Dfr.run(mix);
+		}
+	};
 	class_Dfr.prototype = {
 		_isAsync: true,
 		_done: null,
@@ -175,6 +179,39 @@ var class_Dfr;
 			, dfr
 		);
 		return dfr;
+	};
+	class_Dfr.all = function(promises){
+		var dfr = new class_Dfr,
+			arr = new Array(promises.length),
+			wait = promises.length,
+			error = null;
+		if (wait === 0) {
+			return dfr.resolve(arr);
+		}
+		function tick (index) {
+			if (error != null) {
+				return;
+			}
+			var args = _Array_slice.call(arguments, 1);
+			arr.splice.apply(arr, [index, 0].concat(args));
+			if (--wait === 0) {
+				dfr.resolve(arr);
+			}
+		}
+		function onReject (err) {
+			dfr.reject(error = err);
+		}
+		var imax = promises.length,
+			i = -1;
+		while(++i < imax){
+			var x = promises[i];
+			if (x == null || x.then == null) {
+				tick(i, x);
+				continue;
+			}
+			x.then(tick.bind(null, i), onReject);
+		}		
+		return dfr; 
 	};
 
 	// PRIVATE
