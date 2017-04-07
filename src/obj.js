@@ -11,9 +11,9 @@ var obj_getProperty,
 	obj_defineProperty;
 (function(){
 	obj_getProperty = function(obj_, path){
-		if ('.' === path) // obsolete
-			return obj_;
-
+		if (path.indexOf('.') === -1) {
+			return obj_[path];
+		}
 		var obj = obj_,
 			chain = path.split('.'),
 			imax = chain.length,
@@ -28,6 +28,10 @@ var obj_getProperty,
 		return obj;
 	};
 	obj_setProperty = function(obj_, path, val) {
+		if (path.indexOf('.') === -1) {
+			obj_[path] = val;
+			return;
+		}
 		var obj = obj_,
 			chain = path.split('.'),
 			imax = chain.length - 1,
