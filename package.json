@@ -14,6 +14,7 @@
         "MIT"
     ],
     "main": "lib/utils.js",
+    "types": "./types/module.d.ts",
     "devDependencies": {
         "atma": ">0.9.26",
         "atma-loader-babel": ">0.0.0"
