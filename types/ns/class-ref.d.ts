@@ -16,21 +16,26 @@ declare namespace ClassBase {
     }
 
 
-    export class class_Dfr<T> extends Promise<T> {
-        done (done: (result: T) => void | class_Dfr<any>): this
+    type DfrRunner =  (resolve: Function, reject?: Function) => void | class_Dfr
+    export class class_Dfr {
+        constructor (runner?: DfrRunner | any)
+        then(onOk: (...args: any[]) => void | class_Dfr | PromiseLike<any>, onFail?: (...args: any[]) => void | class_Dfr | PromiseLike<any>)
+        done (done: (...args: any[]) => void | class_Dfr): this
         fail (fail: (error: any | Error) => void): this
-        reject(error: any | Error) 
-        resolve(result?: T): this
+        reject(error: any | Error) : this
+        resolve(...args: any[]): this
         always (always: Function): this
 
         defer (): this
         isResolved (): boolean
         isRejected (): boolean
         isBusy (): boolean
-        resolveDelegate (): (result: T | any) => void | any
+        resolveDelegate (): (result: any) => void | any
         rejectDelegate (): (result: Error | any) => void | any
 
-        static run<T> (fn: (resolve: Function, reject?: Function) => void, ctx?: any): class_Dfr<T>        
+        static run (fn: DfrRunner, ctx?: any): class_Dfr
+        static resove (...args: any[]): class_Dfr
+        static reject (...args: any[]): class_Dfr
     }
 
     export class class_Uri {

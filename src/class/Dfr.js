@@ -166,7 +166,14 @@ var class_Dfr;
 		},
 		
 	};
-
+	class_Dfr.resolve = function(){
+		var dfr = new class_Dfr();
+		return dfr.resolve.apply(dfr, _Array_slice.call(arguments));
+	};
+	class_Dfr.reject = function(error){
+		var dfr = new class_Dfr();
+		return dfr.reject(error);
+	};
 	class_Dfr.run = function(fn, ctx){
 		var dfr = new class_Dfr();
 		if (ctx == null)
