@@ -34,7 +34,7 @@ declare namespace ClassBase {
         rejectDelegate (): (result: Error | any) => void | any
 
         static run (fn: DfrRunner, ctx?: any): class_Dfr
-        static resove (...args: any[]): class_Dfr
+        static resolve (...args: any[]): class_Dfr
         static reject (...args: any[]): class_Dfr
     }
 
