@@ -35,8 +35,8 @@ export function class_create<T1, T2, T3>(p1: T1, p2?: T2, p3?: T3): new (...args
 
 type DeferredLike = class_Dfr | PromiseLike<any>;  
 export class class_Dfr {
-    then(onOk: (...args: any[]) => void | DeferredLike, onFail?: (...args: any[]) => void | DeferredLike)
-    done (done: (...args: any[]) => void | DeferredLike): this
+    then(onOk: (...args: any[]) => void | any | DeferredLike, onFail?: (...args: any[]) => void | any | DeferredLike)
+    done (done: (...args: any[]) => void | any | DeferredLike): this
     fail (fail: (error: any | Error) => void): this
     reject(error: any | Error) : this
     resolve(...args: any[]): this
