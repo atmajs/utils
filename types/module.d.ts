@@ -30,7 +30,12 @@ export class class_EventEmitter {
     pipe: (eventName: string) => (...args) => void         
 }
 
-export function class_create<T1, T2, T3>(p1: T1, p2?: T2, p3?: T3): new (...args: any[]) => T3 & T2 & T1;
+export function class_create<T1, T2, T3, T4>(
+    p1: T1 | (new (...args: any[]) => T1), 
+    p2?: T2 | (new (...args: any[]) => T2), 
+    p3?: T3 | (new (...args: any[]) => T3),
+    p4?: T4 | (new (...args: any[]) => T4)
+): new (...args: any[]) => (T4 & T3 & T2 & T1);
 
 
 type DeferredLike = class_Dfr | PromiseLike<any>;  
