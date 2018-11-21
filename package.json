@@ -16,25 +16,74 @@
     "main": "lib/utils.js",
     "types": "./types/module.d.ts",
     "devDependencies": {
+        "app-bundler": "0.0.61",
         "atma": ">0.9.26",
-        "atma-loader-babel": ">0.0.0"
+        "atma-loader-babel": ">0.0.0",
+        "atma-loader-ts": "^1.1.11"
     },
     "scripts": {
         "test": "atma test",
-        "build": "atma",
-        "release": "atma release"
+        "build": "app-bundler"
     },
     "keywords": [],
-    "atma": {
-        "plugins": [
-            "atma-loader-babel"
-        ],
-        "settings": {
-            "atma-loader-babel": {
-                "extensions": [
-                    "es6", "test"
+    "app-bundler": {
+        "apps": {
+            "embed": {
+                "file": "src/export-all.ts",
+                "outputMain": "lib/utils.embed.js",
+                "package": {
+                    "moduleWrapper": "script"
+                }
+            },
+            "lib": {
+                "file": "src/export-lib.ts",
+                "outputMain": "lib/utils.js",
+                "package": {
+                    "moduleWrapper": "custom",
+                    "moduleWrapperCustomPath": "./src/umd/head.js"
+                }
+            }
+        },
+        "common": {
+            "package": {
+                "module": "import"                
+            },
+            "extensions": {
+                "io": {
+                    "type": "js"
+                }
+            },
+            "defaultExtensions": {
+                "js": "ts"
+            },
+            "middlewares": {
+                "ts": [
+                    "atma-loader-ts:read"
                 ]
             }
         }
-    }
+    },
+    "atma": {
+        "plugins": [
+            "atma-loader-ts",
+            "atma-io-middleware-importer"
+        ],
+        "settings": {
+            "atma-loader-ts": {
+                "extensions": [
+                    "ts",
+                    "test"
+                ],
+                "typescript": {
+                    "sourceMap": false,
+                    "compilerOptions": {
+                        "sourceMap": false,
+                        "module": "esnext"
+                    }
+                }
+            },
+            "atma-io-middleware-importer": {}
+        }
+    },
+    "dependencies": {}
 }

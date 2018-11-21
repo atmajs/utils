@@ -1,3 +1,5 @@
+import { coll_each, coll_indexOf } from '../coll'
+
 if (Array.prototype.forEach === void 0) {
 	Array.prototype.forEach = function(fn, ctx){
 		coll_each(this, fn, ctx);

@@ -14,7 +14,9 @@
 
 }(function(owner, property){
 
-	// import utils.embed.js
-
-	// import /src/exports.es6
+    /**MODULE**/
+    
+    for (var key in Lib) {
+        owner[property][key] = Lib[key];
+    }
 }));
