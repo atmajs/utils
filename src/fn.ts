@@ -28,7 +28,7 @@ export function fn_doNothing (){
     return false;
 };
 
-export function fn_createByPattern (definitions, ctx){
+export function fn_createByPattern (definitions, ctx?){
     var imax = definitions.length;
     return function(){
         var l = arguments.length,
