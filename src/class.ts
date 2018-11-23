@@ -27,7 +27,7 @@ export interface ClassFactory {
     (T4 extends Constructor ? Statics<T4> : {}) &
     (T5 extends Constructor ? Statics<T5> : {}) &
     (new (
-        ...args: any[]
+        arg1?: any, arg2?: any, arg3?: any
     ) => (T1 extends Constructor ? InstanceType<T1> : T1) &
         (T2 extends Constructor ? InstanceType<T2> : T2) &
         (T3 extends Constructor ? InstanceType<T3> : T3) &
