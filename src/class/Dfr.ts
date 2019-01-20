@@ -169,7 +169,7 @@ class_Dfr.prototype = {
     },
     
 };
-class_Dfr.resolve = function(){
+class_Dfr.resolve = function(a?, b?, c?){
     var dfr = new class_Dfr();
     return dfr.resolve.apply(dfr, _Array_slice.call(arguments));
 };

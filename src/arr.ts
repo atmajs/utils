@@ -5,7 +5,7 @@ export function arr_remove (array, x){
     array.splice(i, 1);
     return true;
 };
-export function arr_each (arr, fn, ctx){
+export function arr_each (arr, fn, ctx?){
     arr.forEach(fn, ctx);
 };
 export function arr_indexOf (arr, x){

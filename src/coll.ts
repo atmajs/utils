@@ -1,4 +1,4 @@
-export function coll_each (coll, fn, ctx){
+export function coll_each (coll, fn, ctx?){
     if (ctx == null)
         ctx = coll;
     if (coll == null)
@@ -29,14 +29,14 @@ export function coll_remove (coll, x){
     coll.splice(i, 1);
     return true;
 };
-export function coll_map (coll, fn, ctx){
+export function coll_map (coll, fn, ctx?){
     var arr = new Array(coll.length);
     coll_each(coll, function(x, i){
         arr[i] = fn.call(this, x, i);
     }, ctx);
     return arr;
 };
-export function coll_find (coll, fn, ctx){
+export function coll_find (coll, fn, ctx?){
     var imax = coll.length,
         i = 0;
     for(; i < imax; i++){

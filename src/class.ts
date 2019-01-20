@@ -27,7 +27,7 @@ export interface ClassFactory {
     (T4 extends Constructor ? Statics<T4> : {}) &
     (T5 extends Constructor ? Statics<T5> : {}) &
     (new (
-        arg1?: any, arg2?: any, arg3?: any
+        arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any
     ) => (T1 extends Constructor ? InstanceType<T1> : T1) &
         (T2 extends Constructor ? InstanceType<T2> : T2) &
         (T3 extends Constructor ? InstanceType<T3> : T3) &
@@ -49,7 +49,7 @@ export const class_create: ClassFactory = createClassFactory(obj_extendDefaults)
 export const class_createEx = createClassFactory(obj_extendPropertiesDefaults);
 
 function createClassFactory(extendDefaultsFn) {
-    return function(a, b?, c?){
+    return function(a, b?, c?, d?, e?, f?, g?, h?){
         var args = _Array_slice.call(arguments),
             Proto = args.pop();
         if (Proto == null)

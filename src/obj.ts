@@ -1,6 +1,6 @@
 import { _Object_defineProperty, _Object_getOwnProp } from './refs';
 
-export function obj_getProperty (obj_, path){
+export function obj_getProperty (obj_: any, path: string){
     if (path.indexOf('.') === -1) {
         return obj_[path];
     }
@@ -128,10 +128,10 @@ var extendPropertiesFactory = function(overwriteProps){
     };
 };
 
-export const obj_extendProperties		 = extendPropertiesFactory(true);
+export const obj_extendProperties		  = extendPropertiesFactory(true);
 export const obj_extendPropertiesDefaults = extendPropertiesFactory(false );
 
-export function obj_extendMany (a){
+export function obj_extendMany (a, arg1?, arg2?, arg3?, arg4?, arg5?, arg6?){
     var imax = arguments.length,
         i = 1;
     for(; i<imax; i++) {

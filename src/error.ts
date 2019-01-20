@@ -11,7 +11,7 @@ export function error_createClass (name, Proto, stackSliceFrom){
     return Ctor;
 };
 
-export function error_formatSource (source, index, filename) {
+export function error_formatSource (source, index, filename?) {
     var cursor  = error_cursor(source, index),
         lines   = cursor[0],
         lineNum = cursor[1],

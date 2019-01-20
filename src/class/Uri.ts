@@ -97,7 +97,7 @@ export const class_Uri = class_create({
         var path = util_combinePathes(this.host, this.path, this.file) + (this.search || '');
         var str = protocol + path;
 
-        if (!(this.file || this.search)) {
+        if (!(this.file || this.search) && this.path) {
             str += '/'
         }
         return str;
