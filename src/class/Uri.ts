@@ -181,7 +181,7 @@ export const class_Uri = class_create({
     }
 });
 
-var rgx_protocol = /^([a-zA-Z]+):\/\//,
+var rgx_protocol = /^([\w\d]+):\/\//,
     rgx_extension = /\.([\w\d]+)$/i,
     rgx_win32Drive = /(^\/?\w{1}:)(\/|$)/,
     rgx_fileWithExt = /([^\/]+(\.[\w\d]+)?)$/i
