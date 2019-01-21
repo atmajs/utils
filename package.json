@@ -1,7 +1,7 @@
 {
     "name": "atma-utils",
     "description": "Helpers",
-    "version": "0.1.19",
+    "version": "0.1.20",
     "author": "Alexander Kit <alex.kit@atmajs.com>",
     "repository": {
         "type": "git",
