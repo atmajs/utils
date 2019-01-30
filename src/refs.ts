@@ -9,8 +9,9 @@ export const _Object_defineProperty = Object.defineProperty;
 declare var global: any;
 declare var window: any;
 
-const $global = typeof global !== 'undefined' ? global : window;
-export { $global as global };
-
-const $document = typeof window !== 'undefined' && window.document != null ? window.document : null;
-export { $document as document };
+export const _global = typeof global !== 'undefined' 
+    ? global 
+    : window;
+export const _document = typeof window !== 'undefined' && window.document != null 
+    ? window.document 
+    : null;
