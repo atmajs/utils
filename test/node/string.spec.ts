@@ -1,3 +1,5 @@
+import { str_dedent } from '../../src/str';
+
 UTest({
 	'Dedent': {
 		'same indent' () {

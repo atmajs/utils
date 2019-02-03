@@ -1,3 +1,5 @@
+import { class_create, class_createEx } from '../../src/class';
+
 testClassFactory(class_create);
 testClassFactory(class_createEx);
 

@@ -1,3 +1,5 @@
+import { error_createClass, error_cursor, error_formatCursor } from '../../src/error';
+
 UTest({
 	'Error Constructor' () {
 		var FooError = error_createClass('FooError', {

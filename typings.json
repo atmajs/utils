@@ -1,5 +1,9 @@
 {
     "name": "atma-utils",
     "main": "./types/global.d.ts",
-    "global": true
+    "global": true,
+    "globalDependencies": {
+        "assertion": "github:atmajs/assertion",
+        "atma-utest": "github:atmajs/utest"
+    }
 }

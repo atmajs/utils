@@ -1,7 +1,7 @@
 import { obj_extend, obj_defineProperty } from './obj';
 import { str_format } from './str';
 
-export function error_createClass (name, Proto, stackSliceFrom){
+export function error_createClass (name, Proto, stackSliceFrom?){
     var Ctor = _createCtor(Proto, stackSliceFrom);
     Ctor.prototype = new Error;
 
@@ -87,7 +87,7 @@ function _createCtor(Proto, stackFrom){
         ? Proto.constructor
         : null;
 
-    return function(){
+    return function(...args){
         obj_defineProperty(this, 'stack', {
             value: _prepairStack(stackFrom || 3)
         });
