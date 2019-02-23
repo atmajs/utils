@@ -19,10 +19,8 @@ export function is_String(x) {
 export function is_notEmptyString(x) {
     return typeof x === 'string' && x !== '';
 }
-export function is_rawObject(obj) {
-    if (obj == null || typeof obj !== 'object') return false;
-
-    return obj.constructor === Object;
+export function is_rawObject(x) {
+    return x != null && typeof x === 'object' && x.constructor === Object;
 }
 export function is_Date(x) {
     if (x == null || typeof x !== 'object') {
@@ -32,6 +30,12 @@ export function is_Date(x) {
         return true;
     }
     return false;
+}
+export function is_PromiseLike (x) {
+    return x != null && typeof x === 'object' && typeof x.then === 'function';
+}
+export function is_Observable (x) {
+    return x != null && typeof x === 'object' && typeof x.subscribe === 'function';
 }
 export const is_DOM = typeof window !== 'undefined' && window.navigator != null;
 export const is_NODE = !is_DOM;
