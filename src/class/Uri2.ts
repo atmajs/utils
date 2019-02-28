@@ -1,4 +1,3 @@
-import { class_create } from '../class'
 
 export class class_Uri {
     protocol: string = null
