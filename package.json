@@ -16,7 +16,7 @@
     "main": "lib/utils.js",
     "types": "./types/module.d.ts",
     "devDependencies": {
-        "app-bundler": "0.0.61",
+        "app-bundler": "0.0.68",
         "atma": ">0.9.26",
         "atma-loader-babel": ">0.0.0",
         "atma-loader-ts": "^1.1.11"
@@ -47,7 +47,7 @@
         },
         "common": {
             "package": {
-                "module": "import"                
+                "module": "import"
             },
             "extensions": {
                 "io": {
