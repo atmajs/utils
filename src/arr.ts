@@ -1,3 +1,5 @@
+import { obj_create } from './obj';
+
 export function arr_remove (array, x){
     var i = array.indexOf(x);
     if (i === -1)
@@ -26,3 +28,28 @@ export function arr_pushMany (arr, arrSource){
         arr[il + j] = arrSource[j];
     }
 };
+export function arr_distinct (arr, compareFn?) {
+    let out = [];
+    let hash = compareFn == null ? obj_create(null) : null;
+    
+    outer: for (let i = 0; i < arr.length; i++) {
+        let x = arr[i];
+        if (compareFn == null) {
+            if (hash[x] === 1) {
+                continue;
+            }
+            hash[x] = 1;
+        }
+        else {
+            for (let j = i - 1; j > -1; j--) {
+                let prev = arr[j];
+                if (compareFn(x, prev)) {
+                    continue outer;
+                }
+            }
+        }
+        out.push(x);
+    }
+    return out;
+}
+

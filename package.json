@@ -1,7 +1,7 @@
 {
     "name": "atma-utils",
     "description": "Helpers",
-    "version": "0.1.26",
+    "version": "0.1.27",
     "author": "Alexander Kit <alex.kit@atmajs.com>",
     "repository": {
         "type": "git",
@@ -17,7 +17,7 @@
     "types": "./types/module.d.ts",
     "devDependencies": {
         "app-bundler": "0.0.68",
-        "atma": ">0.9.26",
+        "atma": "^0.12.2",
         "atma-loader-babel": ">0.0.0",
         "atma-loader-ts": "^1.1.11"
     },
@@ -70,6 +70,12 @@
             "atma-io-middleware-importer"
         ],
         "settings": {
+            "include": {
+                "amd": true,
+                "extentionDefault": {
+                    "js": "ts"
+                }
+            },
             "atma-loader-ts": {
                 "extensions": [
                     "ts",
@@ -79,7 +85,12 @@
                     "sourceMap": false,
                     "compilerOptions": {
                         "sourceMap": false,
-                        "module": "esnext"
+                        "#if (TEST)": {
+                            "module": "amd"
+                        },
+                        "#if (!TEST)": {
+                            "module": "esnext"
+                        }
                     }
                 }
             },
