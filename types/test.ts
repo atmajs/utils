@@ -1,3 +1,4 @@
-import { is_Function } from './module'
+import { is_Function, mixin } from './module'
 
-is_Function ()
+is_Function ({})
+mixin({a: 1}, { b: 1})

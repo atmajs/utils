@@ -1,5 +1,22 @@
 import { _Object_defineProperty, _Object_getOwnProp } from './refs';
 
+const getDescriptor = Object.getOwnPropertyDescriptor;
+const defineDescriptor = Object.defineProperty;
+
+let obj_copyProperty = getDescriptor == null 
+    ? (target, source, key) => target[key] = source[key]
+    : (target, source, key) => {
+        let descr = getDescriptor(source, key);
+        if (descr.value !== void 0) {
+            target[key] = descr.value;
+            return;
+        }
+        defineDescriptor(target, key, descr);
+    };
+
+export { obj_copyProperty };
+
+
 export function obj_getProperty (obj_: any, path: string){
     if (path.indexOf('.') === -1) {
         return obj_[path];
@@ -153,3 +170,53 @@ export const _Object_create = Object.create || function(x) {
     return new Ctor;
 };
 export const obj_create = _Object_create;
+
+
+export function obj_defaults(target, defaults) {
+    for (var key in defaults) {
+        if (target[key] == null) target[key] = defaults[key];
+    }
+    return target;
+}
+
+
+let obj_extendDescriptors;
+let obj_extendDescriptorsDefaults;
+
+(function() {
+    
+    if (getDescriptor == null) {
+        obj_extendDescriptors = obj_extend;
+        obj_extendDescriptorsDefaults = obj_defaults;
+        return;
+    }
+    obj_extendDescriptors = function(target, source) {
+        return _extendDescriptors(target, source, false);
+    };
+    obj_extendDescriptorsDefaults = function(target, source) {
+        return _extendDescriptors(target, source, true);
+    };
+    function _extendDescriptors(target, source, defaultsOnly) {
+        if (target == null) return {};
+        if (source == null) return source;
+
+        var descr, key;
+        for (key in source) {
+            if (defaultsOnly === true && target[key] != null) continue;
+
+            descr = getDescriptor(source, key);
+            if (descr == null) {
+                obj_extendDescriptors(target, source["__proto__"]);
+                continue;
+            }
+            if (descr.value !== void 0) {
+                target[key] = descr.value;
+                continue;
+            }
+            defineDescriptor(target, key, descr);
+        }
+        return target;
+    }
+})();
+
+export { obj_extendDescriptors, obj_extendDescriptorsDefaults };

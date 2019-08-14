@@ -84,4 +84,36 @@ declare namespace Lib {
 
         static combine (...paths: string[]): string
     }
+
+    export type Constructor<T = {}> = {
+        new (...args: any[]): T;
+    };
+
+    export type Statics<T> = { [P in keyof T]: T[P] };
+
+    export function mixin<
+        T1 extends Constructor | object,
+        T2 extends Constructor | object = {},
+        T3 extends Constructor | object = {},
+        T4 extends Constructor | object = {},
+        T5 extends Constructor | object = {}
+    >(
+        mix1: T1,
+        mix2?: T2,
+        mix3?: T3,
+        mix4?: T4,
+        mix5?: T5
+    ): (T1 extends Constructor ? Statics<T1> : {}) &
+        (T2 extends Constructor ? Statics<T2> : {}) &
+        (T3 extends Constructor ? Statics<T3> : {}) &
+        (T4 extends Constructor ? Statics<T4> : {}) &
+        (T5 extends Constructor ? Statics<T5> : {}) &
+        (new (
+        ...args: T1 extends Constructor ? ConstructorParameters<T1> : never[]
+        ) => (T1 extends Constructor ? InstanceType<T1> : T1) &
+            (T2 extends Constructor ? InstanceType<T2> : T2) &
+            (T3 extends Constructor ? InstanceType<T3> : T3) &
+            (T4 extends Constructor ? InstanceType<T4> : T4) &
+            (T5 extends Constructor ? InstanceType<T5> : T5)) 
+    ;
 }
