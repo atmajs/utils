@@ -17,7 +17,10 @@ let obj_copyProperty = getDescriptor == null
 export { obj_copyProperty };
 
 
-export function obj_getProperty (obj_: any, path: string){
+export function obj_getProperty (obj_: any, path: string) {
+    if (obj_ == null) {
+        return null;
+    }
     if (path.indexOf('.') === -1) {
         return obj_[path];
     }
