@@ -7,6 +7,10 @@ let obj_copyProperty = getDescriptor == null
     ? (target, source, key) => target[key] = source[key]
     : (target, source, key) => {
         let descr = getDescriptor(source, key);
+        if (descr == null) {
+            target[key] = source[key];
+            return;
+        }
         if (descr.value !== void 0) {
             target[key] = descr.value;
             return;
@@ -105,7 +109,7 @@ export function obj_extendDefaults (a, b){
     if (a == null)
         return obj_create(b);
 
-    for(var key in b) {
+    for(let key in b) {
         if (a[key] == null) {
             a[key] = b[key];
             continue;
