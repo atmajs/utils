@@ -167,7 +167,12 @@ class_Dfr.prototype = {
     rejectDelegate: function(){
         return fn_proxy(this.reject, this);
     },
-    
+    catch (cb) {
+        return this.fail(cb);
+    },
+    finally (cb) {
+        return this.always(cb);
+    }
 };
 class_Dfr.resolve = function(a?, b?, c?){
     var dfr = new class_Dfr();

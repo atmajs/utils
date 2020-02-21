@@ -5,13 +5,13 @@ export const class_EventEmitter = function() {
     this._listeners = {};
 };
 class_EventEmitter.prototype = {
-    on: function(event, fn) {
+    on (event, fn) {
         if (fn != null){
             (this._listeners[event] || (this._listeners[event] = [])).push(fn);
         }
         return this;
     },
-    once: function(event, fn){
+    once (event, fn){
         if (fn != null) {
             fn._once = true;
             (this._listeners[event] || (this._listeners[event] = [])).push(fn);
@@ -19,7 +19,7 @@ class_EventEmitter.prototype = {
         return this;
     },
 
-    pipe: function(event){
+    pipe (event){
         var that = this,
             args;
         return function(){
@@ -32,7 +32,7 @@ class_EventEmitter.prototype = {
     emit: event_trigger,
     trigger: event_trigger,
 
-    off: function(event, fn) {
+    off (event, fn) {
         var listeners = this._listeners[event];
         if (listeners == null)
             return this;

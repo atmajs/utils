@@ -27,12 +27,12 @@ declare namespace Lib {
 
 
     export class class_EventEmitter {
-        on: (event: string, cb: Function) => this
-        once: (event: string, cb: Function) => this
-        off: (event: string, cb?: Function) => this
-        emit: (event: string, ...args: any[]) => this
-        trigger: (event: string, ...args: any[]) => this
-        pipe: (eventName: string) => (...args) => void         
+        on (event: string, cb: Function): this
+        once (event: string, cb: Function): this
+        off (event: string, cb?: Function): this
+        emit (event: string, ...args: any[]): this
+        trigger (event: string, ...args: any[]): this
+        pipe (eventName: string): (...args) => void
     }
 
     export function class_create<T1, T2, T3>(p1: T1, p2?: T2, p3?: T3): new (...args: any[]) => T3 & T2 & T1;
