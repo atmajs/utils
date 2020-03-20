@@ -21,12 +21,12 @@ export function obj_create<T1>(a: T1): T1
 export function obj_defineProperty(o: any, p: string, attributes: PropertyDescriptor & ThisType<any>): void;
 
 export class class_EventEmitter {
-    on: (event: string, cb: Function) => this
-    once: (event: string, cb: Function) => this
-    off: (event: string, cb?: Function) => this
-    emit: (event: string, ...args: any[]) => this
-    trigger: (event: string, ...args: any[]) => this
-    pipe: (eventName: string) => (...args) => void         
+    on (event: string, cb: Function): this
+    once (event: string, cb: Function): this
+    off (event: string, cb?: Function): this
+    emit (event: string, ...args: any[]): this
+    trigger (event: string, ...args: any[]): this
+    pipe (eventName: string): (...args) => void
 }
 
 export function class_create<T1, T2, T3, T4>(
