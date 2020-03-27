@@ -57,23 +57,25 @@ class_EventEmitter.prototype = {
     }
 };
 
-function event_trigger() {
-    var args = _Array_slice.call(arguments),
-        event = args.shift(),
-        fns = this._listeners[event],
-        fn, imax, i = 0;
-
-    if (fns == null)
+function event_trigger(event: string, ...args) {
+    let fns = this._listeners[event];
+    if (fns == null) {
         return this;
+    }
 
-    for (imax = fns.length; i < imax; i++) {
-        fn = fns[i];
+    for (let i = 0; i < fns.length; i++) {
+        let fn = fns[i];
         fn_apply(fn, this, args);
+
+        if (fn !== fns[i]) {
+            // the callback has removed itself
+            i--;
+            continue;
+        }
 
         if (fn._once === true){
             fns.splice(i, 1);
             i--;
-            imax--;
         }
     }
     return this;
