@@ -2,12 +2,16 @@ import { fn_apply, fn_proxy } from '../fn';
 import { is_Function } from '../is';
 import { _Array_slice } from '../refs';
 
-//@TODO remove constructr run
-export const class_Dfr = function(mix?): void {
-    if (typeof mix === 'function') {
-        return class_Dfr.run(mix);
-    }
+export interface IDfrConstructor {
+    new (): typeof class_Dfr.prototype
+    resolve: typeof static_Dfr.resolve
+    reject: typeof static_Dfr.reject
+    all: typeof static_Dfr.all
+    run: typeof static_Dfr.run
 };
+
+export const class_Dfr: IDfrConstructor = <any> function () {};
+
 class_Dfr.prototype = {
     _isAsync: true,
     _done: null,
@@ -174,15 +178,18 @@ class_Dfr.prototype = {
         return this.always(cb);
     }
 };
-class_Dfr.resolve = function(a?, b?, c?){
+
+const static_Dfr = {
+    
+resolve: function(a?, b?, c?){
     var dfr = new class_Dfr();
     return dfr.resolve.apply(dfr, _Array_slice.call(arguments));
-};
-class_Dfr.reject = function(error){
+},
+reject: function(error){
     var dfr = new class_Dfr();
     return dfr.reject(error);
-};
-class_Dfr.run = function(fn, ctx?){
+},
+run: function(fn, ctx?){
     var dfr = new class_Dfr();
     if (ctx == null)
         ctx = dfr;
@@ -194,8 +201,8 @@ class_Dfr.run = function(fn, ctx?){
         , dfr
     );
     return dfr;
-};
-class_Dfr.all = function(promises){
+},
+all: function(promises){
     var dfr = new class_Dfr,
         arr = new Array(promises.length),
         wait = promises.length,
@@ -227,7 +234,13 @@ class_Dfr.all = function(promises){
         x.then(tick.bind(null, i), onReject);
     }		
     return dfr; 
+}
 };
+
+class_Dfr.resolve = static_Dfr.resolve;
+class_Dfr.reject = static_Dfr.reject;
+class_Dfr.run = static_Dfr.run;
+class_Dfr.all = static_Dfr.all;
 
 // PRIVATE
 
