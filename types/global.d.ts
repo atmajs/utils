@@ -26,19 +26,19 @@ declare namespace Lib {
     export function obj_defineProperty(o: any, p: string, attributes: PropertyDescriptor & ThisType<any>): void;
 
 
-    export class class_EventEmitter {
-        on (event: string, cb: Function): this
-        once (event: string, cb: Function): this
-        off (event: string, cb?: Function): this
-        emit (event: string, ...args: any[]): this
-        trigger (event: string, ...args: any[]): this
-        pipe (eventName: string): (...args) => void
+    export class class_EventEmitter<TEvents extends Record<keyof TEvents, (...args: any) => any>  = any> {
+        on<TKey extends keyof TEvents> (event: TKey, cb: TEvents[TKey]): this
+        once<TKey extends keyof TEvents> (event: TKey, cb: TEvents[TKey]): this
+        off<TKey extends keyof TEvents> (event: TKey, cb?: Function): this
+        emit<TKey extends keyof TEvents> (event: TKey, ...args: Parameters<TEvents[TKey]>): this
+        trigger<TKey extends keyof TEvents> (event: TKey, ...args: Parameters<TEvents[TKey]>): this
+        pipe<TKey extends keyof TEvents> (eventName: TKey): (...args) => void
     }
 
     export function class_create<T1, T2, T3>(p1: T1, p2?: T2, p3?: T3): new (...args: any[]) => T3 & T2 & T1;
 
 
-    type DeferredLike = class_Dfr | PromiseLike<any>;  
+    type DeferredLike = class_Dfr | PromiseLike<any>;
     export class class_Dfr {
         then(onOk: (...args: any[]) => void | any | DeferredLike, onFail?: (...args: any[]) => void | any | DeferredLike)
         done (done: (...args: any[]) => void | any | DeferredLike): this
@@ -62,12 +62,12 @@ declare namespace Lib {
     export class class_Uri {
         constructor (path)
 
-        protocol: string		
+        protocol: string
         value: string
         path: string
         file: string
         extension: string
-        
+
         cdUp (): this
         combine (path: string): class_Uri
         toString (): string
@@ -78,7 +78,7 @@ declare namespace Lib {
          * @return Current Uri Path{String} that is relative to @arg1 Uri
          */
         toRelativeString (uri: class_Uri): string
-        
+
         isRelative (): boolean
         getName (): string
 
@@ -114,6 +114,6 @@ declare namespace Lib {
             (T2 extends Constructor ? InstanceType<T2> : T2) &
             (T3 extends Constructor ? InstanceType<T3> : T3) &
             (T4 extends Constructor ? InstanceType<T4> : T4) &
-            (T5 extends Constructor ? InstanceType<T5> : T5)) 
+            (T5 extends Constructor ? InstanceType<T5> : T5))
     ;
 }
