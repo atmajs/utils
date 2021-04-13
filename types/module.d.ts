@@ -42,7 +42,7 @@ export class class_Dfr {
     then(onOk: (...args: any[]) => void | any | DeferredLike, onFail?: (...args: any[]) => void | any | DeferredLike)
     done (done: (...args: any[]) => void | any | DeferredLike): this
     fail (fail: (error: any | Error) => void): this
-    reject(error: any | Error) : this
+    reject(error: any | Error, ...args: any[]) : this
     resolve(...args: any[]): this
     always (always: Function): this
 
