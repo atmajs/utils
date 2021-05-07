@@ -13,7 +13,7 @@ import {
     obj_extendPropertiesDefaults,
     obj_create,
     obj_defineProperty,
-    obj_clean,
+    obj_clean
 } from './obj';
 
 import { is_Function, is_Array, is_ArrayLike, is_String, is_Object, is_notEmptyString, is_rawObject, is_Date, is_NODE, is_DOM } from './is';

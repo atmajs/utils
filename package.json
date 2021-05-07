@@ -1,7 +1,7 @@
 {
     "name": "atma-utils",
     "description": "Helpers",
-    "version": "0.1.40",
+    "version": "0.1.41",
     "author": "Alexander Kit <alex.kit@atmajs.com>",
     "repository": {
         "type": "git",
@@ -19,7 +19,7 @@
         "app-bundler": "0.0.68",
         "atma": "^0.12.2",
         "atma-loader-babel": ">0.0.0",
-        "atma-loader-ts": "^1.1.11"
+        "atma-loader-ts": "^1.1.12"
     },
     "scripts": {
         "test": "atma test",
@@ -96,6 +96,5 @@
             },
             "atma-io-middleware-importer": {}
         }
-    },
-    "dependencies": {}
+    }
 }
