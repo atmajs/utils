@@ -1,7 +1,7 @@
 {
     "name": "atma-utils",
     "description": "Helpers",
-    "version": "0.1.41",
+    "version": "0.2.42",
     "author": "Alexander Kit <alex.kit@atmajs.com>",
     "repository": {
         "type": "git",
@@ -14,16 +14,19 @@
         "MIT"
     ],
     "main": "lib/utils.js",
-    "types": "./types/module.d.ts",
+    "types": "./lib/utils.d.ts",
     "devDependencies": {
-        "app-bundler": "0.0.68",
-        "atma": "^0.12.2",
+        "app-bundler": "^0.0.94",
+        "atma": "^0.12.28",
+        "atma-io": "^1.2.37",
         "atma-loader-babel": ">0.0.0",
-        "atma-loader-ts": "^1.1.12"
+        "atma-loader-ts": "^1.1.12",
+        "dts-bundle": "^0.7.3"
     },
     "scripts": {
         "test": "atma test",
-        "build": "app-bundler",
+        "build": "app-bundler && npm run dts",
+        "dts": "tsc -p tsconfig-build.json && atma run tools/build-dts",
         "release": "echo \"Run atma pub -m \"message\"\""
     },
     "keywords": [],
@@ -86,10 +89,10 @@
                     "compilerOptions": {
                         "sourceMap": false,
                         "#if (TEST)": {
-                            "module": "amd"
+                            "module": "AMD"
                         },
                         "#if (!TEST)": {
-                            "module": "esnext"
+                            "module": "CommonJS"
                         }
                     }
                 }

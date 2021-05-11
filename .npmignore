@@ -8,7 +8,6 @@
 
 .travis.yml
 
-build.js
 node_modules/
 tools/
 test/

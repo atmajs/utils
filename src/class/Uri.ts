@@ -1,78 +1,72 @@
-import { class_create } from '../class'
 
-export const class_Uri = class_create({
-    protocol: null,		
-    value: null,
-    path: null,
-    file: null,
-    extension: null,
+export class class_Uri {
+    protocol: string = null
+    host: string = null
+    path: string = null
+    file: string = null
 
-    constructor (uri) {
-        if (uri == null)
+    extension: string = null
+    search: string = null
+    value: string = null
+
+    constructor (uri?: string | class_Uri ) {
+        if (uri == null) {
             return this;
+        }
+        if (util_isUri(uri)) {
+            return util_clone(uri);
+        }
 
-        if (util_isUri(uri))
-            return uri.combine('');
-
-        uri = normalize_uri(uri);
+        uri = normalize_path(uri);
 
         this.value = uri;
 
         parse_protocol(this);
         parse_host(this);
-
         parse_search(this);
         parse_file(this);
 
 
         // normilize path - "/some/path"
         this.path = normalize_pathsSlashes(this.value);
-
-        if (/^[\w]+:\//.test(this.path)){
-            this.path = '/' + this.path;
-        }
         return this;
-    },
+    }
     cdUp () {
         var path = this.path;
         if (path == null || path === '' || path === '/') {
+            this.path = '';
             return this;
         }
-
-        // win32 - is base drive
-        if (/^\/?[a-zA-Z]+:\/?$/.test(path)) {
-            return this;
-        }
-
         this.path = path.replace(/\/?[^\/]+\/?$/i, '');
         return this;
-    },
+    }
     /**
      * '/path' - relative to host
      * '../path', 'path','./path' - relative to current path
      */
-    combine (path) {
+    combine (mix: string | class_Uri) {
 
-        if (util_isUri(path)) {
+        let path: string;
+        if (util_isUri(mix)) {
+            if (mix.protocol || mix.host) {
+                return util_clone(mix);
+            }
             path = path.toString();
+        } else {
+            path = mix;
         }
-
-        if (!path) {
+        if (path == null || path === '') {
             return util_clone(this);
         }
 
-        if (rgx_win32Drive.test(path)) {
-            return new class_Uri(path);
-        }
-
-        var uri = util_clone(this);
+        let uri = util_clone(this);
 
         uri.value = path;
 
         parse_search(uri);
         parse_file(uri);
 
-        if (!uri.value)  {
+        if (uri.value === '')  {
             return uri;
         }
 
@@ -86,12 +80,15 @@ export const class_Uri = class_create({
         while (/^(\.\.\/?)/ig.test(path)) {
             uri.cdUp();
             path = path.substring(3);
+            if (uri.path === '') {
+                break;
+            }
         }
 
         uri.path = normalize_pathsSlashes(util_combinePathes(uri.path, path));
 
         return uri;
-    },
+    }
     toString () {
         var protocol = this.protocol ? this.protocol + '://' : '';
         var path = util_combinePathes(this.host, this.path, this.file) + (this.search || '');
@@ -101,17 +98,17 @@ export const class_Uri = class_create({
             str += '/'
         }
         return str;
-    },
+    }
     toPathAndQuery () {
         return util_combinePathes(this.path, this.file) + (this.search || '');
-    },
+    }
     /**
      * @return Current Uri Path{String} that is relative to @arg1 Uri
      */
-    toRelativeString (uri) {
-        if (typeof uri === 'string')
+    toRelativeString (uri: string | class_Uri) {
+        if (typeof uri === 'string') {
             uri = new class_Uri(uri);
-
+        }
         if (this.path.indexOf(uri.path) === 0) {
             // host folder
             var p = this.path ? this.path.replace(uri.path, '') : '';
@@ -156,30 +153,33 @@ export const class_Uri = class_create({
 
 
         return this.toString();
-    },
+    }
 
     toLocalFile () {
         var path = util_combinePathes(this.host, this.path, this.file);
 
         return util_win32Path(path);
-    },
+    }
     toLocalDir () {
         var path = util_combinePathes(this.host, this.path, '/');
 
         return util_win32Path(path);
-    },
+    }
     toDir () {
             var str = this.protocol ? this.protocol + '://' : '';
 
         return str + util_combinePathes(this.host, this.path, '/');
-    },
+    }
     isRelative () {
         return !(this.protocol || this.host);
-    },
+    }
     getName () {
         return this.file.replace('.' + this.extension,'');
     }
-});
+
+    static combinePathes = util_combinePathes;
+    static combine = util_combinePathes;
+};
 
 var rgx_protocol = /^([\w\d]+):\/\//,
     rgx_extension = /\.([\w\d]+)$/i,
@@ -187,7 +187,7 @@ var rgx_protocol = /^([\w\d]+):\/\//,
     rgx_fileWithExt = /([^\/]+(\.[\w\d]+)?)$/i
     ;
 
-function util_isUri(object) {
+function util_isUri(object: string | class_Uri): object is class_Uri {
     return object && typeof object === 'object' && typeof object.combine === 'function';
 }
 
@@ -220,7 +220,7 @@ function normalize_pathsSlashes(str) {
     return str;
 }
 
-function util_clone(source) {
+function util_clone(source: class_Uri) {
     var uri = new class_Uri(),
         key;
     for (key in source) {
@@ -231,15 +231,24 @@ function util_clone(source) {
     return uri;
 }
 
-function normalize_uri(str) {
-    return str
+function normalize_path(str: string): string {
+    str = str
         .replace(/\\/g,'/')
         .replace(/^\.\//,'')
-
-        // win32 drive path
-        .replace(/^(\w+):\/([^\/])/, '/$1:/$2')
-
         ;
+    let double = /\/{2,}/g;
+    do {
+        let match = double.exec(str);
+        if (match == null) {
+            break;
+        }
+        if (match.index === 0 || str[match.index - 1] === ':') {
+            continue;
+        }
+        str = str.substring(0, match.index) + '/' + str.substring(match.index + match[0].length + 1);
+    } while (true);
+
+    return str;
 }
 
 function util_win32Path(path) {
@@ -249,51 +258,41 @@ function util_win32Path(path) {
     return path;
 }
 
-function parse_protocol(obj) {
-    var match = rgx_protocol.exec(obj.value);
-
-    if (match == null && obj.value[0] === '/'){
-        obj.protocol = 'file';
+function parse_protocol(uri: class_Uri) {
+    var match = rgx_protocol.exec(uri.value);
+    if (match == null) {
+        return;
+    }
+    uri.protocol = match[1];
+    uri.value = uri.value.substring(match[0].length);
+}
+function parse_host(uri: class_Uri) {
+    var match = rgx_win32Drive.exec(uri.value);
+    if (match) {
+        uri.protocol = 'file';
+        uri.host = match[1];
+        uri.value = uri.value.substring(uri.host.length);
     }
 
-    if (match == null)
-        return;
-
-
-    obj.protocol = match[1];
-    obj.value = obj.value.substring(match[0].length);
-}
-
-function parse_host(obj) {
-    if (obj.protocol == null)
-        return;
-
-    if (obj.protocol === 'file') {
-        var match = rgx_win32Drive.exec(obj.value);
-        if (match) {
-            obj.host = match[1];
-            obj.value = obj.value.substring(obj.host.length);
-        }
+    if (uri.protocol == null || uri.protocol === 'file') {
         return;
     }
 
-    var pathStart = obj.value.indexOf('/', 2);
+    let pathStartIdx = uri.value.indexOf('/', 2);
+    uri.host = pathStartIdx !== -1
+            ? uri.value.substring(0, pathStartIdx)
+            : uri.value;
 
-    obj.host = ~pathStart
-            ? obj.value.substring(0, pathStart)
-            : obj.value;
-
-
-    obj.value = obj.value.replace(obj.host,'');
+    uri.value = uri.value.replace(uri.host,'');
 }
 
-function parse_search(obj) {
-    var question = obj.value.indexOf('?');
-    if (question === -1)
+function parse_search(uri: class_Uri) {
+    var question = uri.value.indexOf('?');
+    if (question === -1) {
         return;
-
-    obj.search = obj.value.substring(question);
-    obj.value = obj.value.substring(0, question);
+    }
+    uri.search = uri.value.substring(question);
+    uri.value = uri.value.substring(0, question);
 }
 
 function parse_file(obj) {
@@ -311,5 +310,3 @@ function parse_file(obj) {
     obj.extension = match == null ? null : match[1];
 }
 
-class_Uri.combinePathes = util_combinePathes;
-class_Uri.combine = util_combinePathes;
