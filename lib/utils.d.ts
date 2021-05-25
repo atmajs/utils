@@ -160,7 +160,7 @@ declare module 'atma-utils/error' {
 }
 
 declare module 'atma-utils/class/Dfr' {
-    export class class_Dfr<T> implements PromiseLike<T> {
+    export class class_Dfr<T = any> implements PromiseLike<T> {
         _isAsync: boolean;
         _done: any;
         _fail: any;
@@ -184,9 +184,9 @@ declare module 'atma-utils/class/Dfr' {
         catch(cb: any): class_Dfr<T>;
         finally(cb: any): any;
         static resolve(a?: any, b?: any, c?: any): any;
-        static reject(error: any): class_Dfr<unknown>;
-        static run(fn: any, ctx?: any): class_Dfr<unknown>;
-        static all(promises: any): class_Dfr<unknown>;
+        static reject(error: any): class_Dfr<any>;
+        static run(fn: any, ctx?: any): class_Dfr<any>;
+        static all(promises: any): class_Dfr<any>;
     }
 }
 

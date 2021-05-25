@@ -2,7 +2,7 @@ import { fn_apply, fn_proxy } from '../fn';
 import { is_Function } from '../is';
 import { _Array_slice } from '../refs';
 
-export class class_Dfr <T> implements PromiseLike<T> {
+export class class_Dfr <T = any> implements PromiseLike<T> {
     _isAsync = true
     _done = null
     _fail = null
