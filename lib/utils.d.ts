@@ -172,7 +172,7 @@ declare module 'atma-utils/class/Dfr' {
         isRejected(): boolean;
         isBusy(): boolean;
         resolve(value?: T, ...args: any[]): this;
-        reject(error: Error | any): this;
+        reject(error: Error | any, ...args: any[]): this;
         then<TResult1 = T, TResult2 = never>(filterSuccess?: ((value: T, ...args: any[]) => TResult1 | PromiseLike<TResult1>) | undefined | null, filterError?: ((reason: Error | any) => TResult2 | PromiseLike<TResult2>) | undefined | null): class_Dfr<TResult1 | TResult2>;
         done<TResult1 = T, TResult2 = never>(callback: ((value: T, ...args: any[]) => TResult1 | PromiseLike<TResult1>) | undefined | null): class_Dfr<TResult1 | TResult2>;
         fail<TResult1 = T, TResult2 = never>(callback: ((reason: Error | any) => TResult2 | PromiseLike<TResult2>) | undefined | null): class_Dfr<TResult1 | TResult2>;

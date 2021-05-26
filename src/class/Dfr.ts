@@ -37,7 +37,7 @@ export class class_Dfr <T = any> implements PromiseLike<T> {
 
         return this;
     }
-    reject(error: Error | any) {
+    reject(error: Error | any, ...args) {
         var fail = this._fail,
             always = this._always
             ;
