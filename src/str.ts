@@ -1,11 +1,10 @@
 import { is_Object } from './is';
 
 export function str_format (str_, a?, b?, c?, d?){
-    var str = str_,
-        imax = arguments.length,
-        i = 0, x;
+    let imax = arguments.length;
+    let i = 0;
     while ( ++i < imax ){
-        x = arguments[i];
+        let x = arguments[i];
         if (is_Object(x) && x.toJSON) {
             x = x.toJSON();
         }
@@ -14,19 +13,19 @@ export function str_format (str_, a?, b?, c?, d?){
 
     return str_;
 };
-export function str_dedent (str) {
+export function str_dedent (str: string) {
     var rgx = /^[\t ]*\S/gm,
         match = rgx.exec(str),
         count = -1;
-    while(match != null) {			
+    while(match != null) {
         var x = match[0].length;
         if (count === -1 || x < count) count = x;
         match = rgx.exec(str);
-    }		
+    }
     if (--count < 1)
         return str;
 
-    var replacer = new RegExp('^[\\t ]{1,' + count + '}', 'gm');		
+    var replacer = new RegExp('^[\\t ]{1,' + count + '}', 'gm');
     return str
         .replace(replacer, '')
         .replace(/^[\t ]*\r?\n/,'')

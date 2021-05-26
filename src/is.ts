@@ -1,7 +1,7 @@
 export function is_Function(x): x is Function {
     return typeof x === 'function';
 }
-export function is_Object(x): x is any {
+export function is_Object<T = { [key: string]: any }> (x): x is T {
     return x != null && typeof x === 'object';
 }
 export function is_Array<T = any>(arr): arr is T[] {
@@ -19,7 +19,7 @@ export function is_String(x): x is string {
 export function is_notEmptyString(x) {
     return typeof x === 'string' && x !== '';
 }
-export function is_rawObject(x): x is object{
+export function is_rawObject(x): x is { [key: string]: any } {
     return x != null && typeof x === 'object' && x.constructor === Object;
 }
 export function is_Date(x): x is Date{

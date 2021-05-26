@@ -22,7 +22,7 @@ let obj_copyProperty = getDescriptor == null
 export { obj_copyProperty };
 
 
-export function obj_getProperty (obj_: any, path: string) {
+export function obj_getProperty <T = any> (obj_: any, path: string): T {
     if (obj_ == null) {
         return null;
     }
@@ -42,7 +42,7 @@ export function obj_getProperty (obj_: any, path: string) {
     }
     return obj;
 };
-export function obj_setProperty (obj_, path, val) {
+export function obj_setProperty (obj_, path: string, val: any) {
     if (path.indexOf('.') === -1) {
         obj_[path] = val;
         return;
@@ -65,11 +65,11 @@ export function obj_setProperty (obj_, path, val) {
     }
     obj[chain[i]] = val;
 };
-export function obj_hasProperty (obj, path) {
+export function obj_hasProperty (obj, path: string) {
     var x = obj_getProperty(obj, path);
     return x !== void 0;
 };
-export function obj_defineProperty (obj, path, dscr) {
+export function obj_defineProperty (obj, path: string, dscr: PropertyDescriptor & ThisType<any>) {
     var x = obj,
         chain = path.split('.'),
         imax = chain.length - 1,
@@ -153,8 +153,8 @@ var extendPropertiesFactory = function(overwriteProps){
     };
 };
 
-export const obj_extendProperties		  = extendPropertiesFactory(true);
-export const obj_extendPropertiesDefaults = extendPropertiesFactory(false );
+export const obj_extendProperties         = extendPropertiesFactory(true );
+export const obj_extendPropertiesDefaults = extendPropertiesFactory(false);
 
 export function obj_extendMany (a, arg1?, arg2?, arg3?, arg4?, arg5?, arg6?){
     var imax = arguments.length,

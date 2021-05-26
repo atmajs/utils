@@ -47,12 +47,16 @@ declare module 'atma-utils/coll' {
 
 declare module 'atma-utils/is' {
     export function is_Function(x: any): x is Function;
-    export function is_Object(x: any): x is any;
+    export function is_Object<T = {
+        [key: string]: any;
+    }>(x: any): x is T;
     export function is_Array<T = any>(arr: any): arr is T[];
     export const is_ArrayLike: typeof is_Array;
     export function is_String(x: any): x is string;
     export function is_notEmptyString(x: any): boolean;
-    export function is_rawObject(x: any): x is object;
+    export function is_rawObject(x: any): x is {
+        [key: string]: any;
+    };
     export function is_Date(x: any): x is Date;
     export function is_PromiseLike<T = any>(x: any): x is PromiseLike<T>;
     export function is_Observable(x: any): boolean;
@@ -63,10 +67,10 @@ declare module 'atma-utils/is' {
 declare module 'atma-utils/obj' {
     let obj_copyProperty: (target: any, source: any, key: any) => any;
     export { obj_copyProperty };
-    export function obj_getProperty(obj_: any, path: string): any;
-    export function obj_setProperty(obj_: any, path: any, val: any): void;
-    export function obj_hasProperty(obj: any, path: any): boolean;
-    export function obj_defineProperty(obj: any, path: any, dscr: any): void;
+    export function obj_getProperty<T = any>(obj_: any, path: string): T;
+    export function obj_setProperty(obj_: any, path: string, val: any): void;
+    export function obj_hasProperty(obj: any, path: string): boolean;
+    export function obj_defineProperty(obj: any, path: string, dscr: PropertyDescriptor & ThisType<any>): void;
     export function obj_extend(a: any, b: any): any;
     export function obj_extendDefaults(a: any, b: any): any;
     export const obj_extendProperties: typeof obj_extend;
@@ -125,7 +129,7 @@ declare module 'atma-utils/fn' {
 
 declare module 'atma-utils/str' {
     export function str_format(str_: any, a?: any, b?: any, c?: any, d?: any): any;
-    export function str_dedent(str: any): any;
+    export function str_dedent(str: string): string;
 }
 
 declare module 'atma-utils/class' {
