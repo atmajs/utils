@@ -1,5 +1,5 @@
-import * as dts from 'dts-bundle';
-import { File, Directory } from 'atma-io';
+const dts = require('dts-bundle');
+const { File, Directory } = require('atma-io');
 
 async function process () {
 
@@ -77,4 +77,4 @@ namespace Preprocess {
     }
 }
 
-export { process }
+module.exports = { process };
