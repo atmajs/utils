@@ -20,7 +20,7 @@ export function is_notEmptyString(x) {
     return typeof x === 'string' && x !== '';
 }
 export function is_rawObject(x): x is { [key: string]: any } {
-    return x != null && typeof x === 'object' && x.constructor === Object;
+    return x != null && typeof x === 'object' && (x.constructor === Object || x.constructor == null);
 }
 export function is_Date(x): x is Date{
     if (x == null || typeof x !== 'object') {
