@@ -9,9 +9,14 @@ export const _Object_defineProperty = Object.defineProperty;
 declare var global: any;
 declare var window: any;
 
-export const _global = typeof global !== 'undefined' 
-    ? global 
+export let _global = typeof global !== 'undefined'
+    ? global
     : window;
-export const _document = typeof window !== 'undefined' && window.document != null 
-    ? window.document 
+
+export let _document = typeof window !== 'undefined' && window.document != null
+    ? window.document
     : null;
+
+export function setDocument (doc) {
+    _document = doc;
+}

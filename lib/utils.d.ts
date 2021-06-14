@@ -29,8 +29,9 @@ declare module 'atma-utils/refs' {
     export const _Object_hasOwnProp: (v: string | number | symbol) => boolean;
     export const _Object_getOwnProp: (o: any, p: string | number | symbol) => PropertyDescriptor;
     export const _Object_defineProperty: (o: any, p: string | number | symbol, attributes: PropertyDescriptor & ThisType<any>) => any;
-    export const _global: any;
-    export const _document: any;
+    export let _global: any;
+    export let _document: any;
+    export function setDocument(doc: any): void;
 }
 
 declare module 'atma-utils/polyfill/arr' {
