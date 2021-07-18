@@ -2,7 +2,7 @@
 import { obj_extend, obj_copyProperty } from "./obj";
 import { is_Function } from "./is";
 import { fn_apply } from "./fn";
-import { class_extendProtoObjects, class_inherit } from "./proto";
+import { class_extendProtoObjects, class_inherit, proto_getKeys } from "./proto";
 
 export type Constructor<T = {}> = {
     new (...args: any[]): T;
@@ -42,7 +42,7 @@ function mix(...mixins) {
     let _extends = mixins.slice(1);
     let _callable = ensureCallable(mixins);
     let _class = function (...args) {
-        
+
         for (let i = _callable.length - 1; i > -1; i--) {
             let x = _callable[i];
             if (typeof x === 'function') {
@@ -69,7 +69,9 @@ function mixStatics (Ctor, mixins) {
         if (typeof Fn !== 'function') {
             continue;
         }
-        for (let key in Fn) {
+        let keys = proto_getKeys(Fn);
+        for (let j = 0; j < keys.length; j++) {
+            let key = keys[j];
             if (key in Ctor === false) {
                 obj_copyProperty(Ctor, Fn, key);
             }
@@ -79,48 +81,48 @@ function mixStatics (Ctor, mixins) {
 
 
 
-let ensureCallableSingle, 
-	ensureCallable;
+let ensureCallableSingle;
+let ensureCallable;
 (function () {
-	ensureCallable = function (arr) {
-		var out = [],
-			i = arr.length;
-		while(--i > -1) out[i] = ensureCallableSingle(arr[i]);
-		return out;
-	};
-	ensureCallableSingle = function (mix) {
-		if (is_Function(mix) === false) {
-			return mix;
-		}		
-		var fn = mix;
-		var caller = directCaller;
-		var safe = false;
-		var wrapped = function (...args) {
-			var self = this;
-			var x;
-			if (safe === true) {
-				caller(fn, self, args);
-				return;
-			}
-			try {
-				x = caller(fn, self, args);
-				safe = true;					
-			} catch (error) {
-				caller = newCaller;
-				safe = true;
-				caller(fn, self, args);					
-			}
-			if (x != null) {
-				return x;
-			}
-		};		
-		return wrapped;
-	};
-	function directCaller (fn, self, args) {
-		return fn.apply(self, args);
-	}
-	function newCaller (fn, self, args) {
-		var x = new (fn.bind.apply(fn, [null].concat(args)));
-		obj_extend(self, x);
-	}
+    ensureCallable = function (arr) {
+        var out = [],
+            i = arr.length;
+        while(--i > -1) out[i] = ensureCallableSingle(arr[i]);
+        return out;
+    };
+    ensureCallableSingle = function (mix) {
+        if (is_Function(mix) === false) {
+            return mix;
+        }
+        var fn = mix;
+        var caller = directCaller;
+        var safe = false;
+        var wrapped = function (...args) {
+            var self = this;
+            var x;
+            if (safe === true) {
+                caller(fn, self, args);
+                return;
+            }
+            try {
+                x = caller(fn, self, args);
+                safe = true;
+            } catch (error) {
+                caller = newCaller;
+                safe = true;
+                caller(fn, self, args);
+            }
+            if (x != null) {
+                return x;
+            }
+        };
+        return wrapped;
+    };
+    function directCaller (fn, self, args) {
+        return fn.apply(self, args);
+    }
+    function newCaller (fn, self, args) {
+        var x = new (fn.bind.apply(fn, [null].concat(args)));
+        obj_extend(self, x);
+    }
 }());

@@ -75,6 +75,33 @@ function proto_extend(proto, source) {
     }
 }
 
+export function proto_getKeys (mix): string[] {
+    let keys = null;
+    if (_getProtoOf == null) {
+        keys = [];
+        for (let key in mix) {
+            keys.push(key);
+        }
+        return keys;
+    }
+    let cursor = mix;
+    let cursorEnd = null;
+    if (typeof mix === 'function') {
+        cursorEnd = Function.prototype;
+    } else {
+        cursorEnd = Object.prototype;
+    }
+    while (cursor != cursorEnd) {
+        let names = Object.getOwnPropertyNames(cursor);
+        keys = keys == null
+            ? names
+            : keys.concat(names);
+
+        cursor = Object.getPrototypeOf(cursor);
+    }
+    return keys;
+}
+
 function proto_override(super_, fn) {
     var proxy;
 
