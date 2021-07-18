@@ -197,6 +197,11 @@ declare module 'atma-utils/class/Dfr' {
 
 declare module 'atma-utils/class/EventEmitter' {
     export class class_EventEmitter<TEvents extends Record<keyof TEvents, (...args: any) => any> = any> {
+        _listeners: {
+            [event: string]: (Function & {
+                _once?: boolean;
+            })[];
+        };
         on<TKey extends keyof TEvents>(event: TKey, fn: TEvents[TKey]): this;
         once<TKey extends keyof TEvents>(event: TKey, fn: TEvents[TKey]): this;
         pipe<TKey extends keyof TEvents>(event: TKey): () => void;

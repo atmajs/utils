@@ -2,12 +2,14 @@ import { is_Function, is_rawObject } from "./is";
 import { fn_doNothing, fn_apply } from "./fn";
 import { arr_each } from "./arr";
 import {
+    obj_create,
     obj_defaults,
     obj_extendDescriptors
 } from "./obj";
 
 const PROTO = "__proto__";
 
+const _getProtoOf = Object.getPrototypeOf
 const _toString = Object.prototype.toString;
 const _isArguments = function(args) {
     return _toString.call(args) === "[object Arguments]";
@@ -51,16 +53,25 @@ function proto_extendDefaultsDelegate(target, key) {
 function proto_extend(proto, source) {
     if (source == null) return;
 
-    if (typeof proto === "function") proto = proto.prototype;
+    if (typeof proto === "function") {
+        proto = proto.prototype;
+    }
+    if (typeof source === "function") {
+        source = source.prototype;
+    }
 
-    if (typeof source === "function") source = source.prototype;
-
-    var key, val;
-    for (key in source) {
-        if (key === "constructor") continue;
-
-        val = source[key];
-        if (val != null) proto[key] = val;
+    if (_getProtoOf != null) {
+        /** ES6 Classes: methods are not enumarable, which is needed in `inherit_` method: so convert prototype to hash */
+        source = fillProtoHash(source, obj_create(null));
+    }
+    for (let key in source) {
+        if (key === "constructor") {
+            continue;
+        }
+        let val = source[key];
+        if (val != null) {
+            proto[key] = val;
+        }
     }
 }
 
@@ -86,23 +97,23 @@ function proto_override(super_, fn) {
 }
 
 function inherit(_class, _base, _extends, original) {
-    var prototype = original,
-        proto = original;
+    let prototype = original;
+    let protoCursor = original;
 
     prototype.constructor = _class.prototype.constructor;
 
     if (_extends != null) {
-        proto[PROTO] = {};
+        protoCursor[PROTO] = {};
 
         arr_each(_extends, function(x) {
-            proto_extend(proto[PROTO], x);
+            proto_extend(protoCursor[PROTO], x);
         });
-        proto = proto[PROTO];
+        protoCursor = protoCursor[PROTO];
     }
 
-    if (_base != null) proto[PROTO] = _base.prototype;
+    if (_base != null) protoCursor[PROTO] = _base.prototype;
 
-    
+
     _class.prototype = prototype;
 }
 function inherit_Object_create(
@@ -163,4 +174,21 @@ function inherit_protoLess(
 
 function proto_getProto(mix) {
     return is_Function(mix) ? mix.prototype : mix;
+}
+
+
+function fillProtoHash (proto: object, target: object) {
+    let keys = Object.getOwnPropertyNames(proto);
+    for (let i = 0; i < keys.length; i++) {
+        let key = keys[i];
+        if (target[key] != null) {
+            continue;
+        }
+        target[key] = proto[key];
+    }
+    let next = Object.getPrototypeOf(proto);
+    if (next == null || next === Object.prototype) {
+        return target;
+    }
+    return fillProtoHash(next, target);
 }

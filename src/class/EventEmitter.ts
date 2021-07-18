@@ -2,18 +2,20 @@ import { fn_apply } from '../fn';
 import { _Array_slice } from '../refs';
 
 export class class_EventEmitter<TEvents extends Record<keyof TEvents, (...args: any) => any> = any>  {
-    private _listeners: any = {}
+    public _listeners = {} as {
+        [event: string]: (Function & { _once?: boolean }) []
+    }
 
     on<TKey extends keyof TEvents>(event: TKey, fn: TEvents[TKey]) {
         if (fn != null) {
-            (this._listeners[event] || (this._listeners[event] = [])).push(fn);
+            (this._listeners[event as string] || (this._listeners[event as string] = [])).push(fn);
         }
         return this;
     }
     once<TKey extends keyof TEvents>(event: TKey, fn: TEvents[TKey]) {
         if (fn != null) {
             (fn as any)._once = true;
-            (this._listeners[event] || (this._listeners[event] = [])).push(fn);
+            (this._listeners[event as string] || (this._listeners[event as string] = [])).push(fn);
         }
         return this;
     }
@@ -29,7 +31,7 @@ export class class_EventEmitter<TEvents extends Record<keyof TEvents, (...args: 
     }
 
     emit<TKey extends keyof TEvents>(event: TKey, ...args: Parameters<TEvents[TKey]>) {
-        let fns = this._listeners[event];
+        let fns = this._listeners[event as string];
         if (fns == null) {
             return this;
         }
@@ -56,7 +58,7 @@ export class class_EventEmitter<TEvents extends Record<keyof TEvents, (...args: 
     }
 
     off<TKey extends keyof TEvents>(event: TKey, fn?: Function) {
-        var listeners = this._listeners[event];
+        var listeners = this._listeners[event as string];
         if (listeners == null)
             return this;
 
