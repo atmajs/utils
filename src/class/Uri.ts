@@ -51,7 +51,7 @@ export class class_Uri {
             if (mix.protocol || mix.host) {
                 return util_clone(mix);
             }
-            path = path.toString();
+            path = mix.toString();
         } else {
             path = mix;
         }
