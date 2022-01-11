@@ -1,8 +1,8 @@
 {
     "name": "atma-utils",
     "description": "Helpers",
-    "version": "0.2.53",
-    "author": "Alexander Kit <alex.kit@atmajs.com>",
+    "version": "0.2.56",
+    "author": "Alex Kit <alex.kit@atmajs.com>",
     "repository": {
         "type": "git",
         "url": "https://github.com/atmajs/utils.git"
@@ -16,6 +16,7 @@
     "main": "lib/utils.js",
     "types": "./lib/utils.d.ts",
     "devDependencies": {
+        "@types/node": "^17.0.8",
         "app-bundler": "^0.0.94",
         "atma": "^0.12.28",
         "atma-io": "^1.2.37",

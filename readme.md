@@ -1,71 +1,72 @@
 Util Functions
 ----
 
-[![Build Status](https://travis-ci.org/atmajs/utils.png?branch=master)](https://travis-ci.org/atmajs/utils)
+[![Build Status](https://app.travis-ci.com/atmajs/utils.svg?branch=master)](https://app.travis-ci.com/github/atmajs/utils)
 
 #### Embeddable
-	
+
 - `lib/utils.embed.js` All functions are in the top-level scope.
-	
+
 #### Module
 
-- All functions are wrapped to an object, e.g. `require('atma-utils').obj_getProperty`
+- All functions are wrapped to an object, e.g. `require('atma-utils').obj_getProperty` or `import { obj_getProperty } from 'atma-utils'`
+
 
 ## Functions
 
 - Object
-	- `obj_getProperty(obj, path)`
-	- `obj_setProperty(obj, path, val)`
-	- `obj_extend(a, b)`
-	- `obj_extendMany(a, [ ...args])`
-	- `obj_create(obj)`
+    - `obj_getProperty(obj, path)`
+    - `obj_setProperty(obj, path, val)`
+    - `obj_extend(a, b)`
+    - `obj_extendMany(a, [ ...args])`
+    - `obj_create(obj)`
 - Array
-	- `arr_remove`
+    - `arr_remove`
 - Function
-	- `fn_proxy(fn, ctx)`
-	- `fn_doNothing`
+    - `fn_proxy(fn, ctx)`
+    - `fn_doNothing`
 - is
-	- `is_Function(x)`
-	- `is_String(x)`
-	- `is_notEmptyString(x)`
-	- `is_Array(x)`
-	- `is_ArrayLike(x)`
-	- `is_Object(x)`
-	- `is_rawObject(x)`
+    - `is_Function(x)`
+    - `is_String(x)`
+    - `is_notEmptyString(x)`
+    - `is_Array(x)`
+    - `is_ArrayLike(x)`
+    - `is_Object(x)`
+    - `is_rawObject(x)`
 
 - class
-	- `class_create([...Base:Function|Object], Proto:Object)`
+    - `class_create([...Base:Function|Object], Proto:Object)`
 
-		```javascript
-		Proto := Object {
-			constructor: Function,
-			...
-		}
-		```
+        ```javascript
+        Proto := Object {
+            constructor: Function,
+            ...
+        }
+        ```
 
-	- `class_createEx`
+    - `class_createEx`
 
-		Similar to `class_create` but also handles the property accessors. The `class_create` is in this way much more simple and has better performance.
+        Similar to `class_create` but also handles the property accessors. The `class_create` is in this way much more simple and has better performance.
 
-	- `class_Dfr`
+    - `class_Dfr`
 
-		Promise
+        Promise
 
-	- `class_EventEmitter`
+    - `class_EventEmitter`
 
-		Event Emitter
+        Event Emitter
 
 - error
-	- `error_createClass(name:String, Proto:Object):Function`
-	- `error_formatSource(source:String, index:Number, ?filename:String):String`
-	- `error_cursor(source:String, index:Number):Array<lines, lineNum, rowNum>`
-	- `error_formatCursor(lines:Array, lineNum: Number, rowNum: Number):String`
+    - `error_createClass(name:String, Proto:Object):Function`
+    - `error_formatSource(source:String, index:Number, ?filename:String):String`
+    - `error_cursor(source:String, index:Number):Array<lines, lineNum, rowNum>`
+    - `error_formatCursor(lines:Array, lineNum: Number, rowNum: Number):String`
 
 - Prototype fn references
-	- `_Array_slice`
-	- `_Array_splice`
-	- `_Array_indexOf`
-	- `_Obj_hasOwnProp_`
+    - `_Array_slice`
+    - `_Array_splice`
+    - `_Array_indexOf`
+    - `_Obj_hasOwnProp_`
 
 
 # Build
@@ -81,15 +82,15 @@ $ npm run build
 - Builds
 - Commit `release` branch
 - Push/Pulblish:
-	- to `git`
-	- to `npm`
+    - to `git`
+    - to `npm`
 
 ```bash
 $ npm install
 $ npm run release
 ```
 
-# Test 
+# Test
 
 ```bash
 $ npm install
@@ -100,4 +101,4 @@ $ npm test
 
 
 
-:copyright: 2015 - MIT - Atma.js
+:copyright: 2021 - MIT - Atma.js

@@ -13,6 +13,7 @@ declare module 'atma-utils' {
     export * from 'atma-utils/str';
     export * from 'atma-utils/class';
     export * from 'atma-utils/error';
+    export * from 'atma-utils/promisify';
     export * from 'atma-utils/class/Dfr';
     export * from 'atma-utils/class/EventEmitter';
     export * from 'atma-utils/class/Uri';
@@ -26,9 +27,9 @@ declare module 'atma-utils/refs' {
         (start: number, deleteCount: number, ...items: any[]): any[];
     };
     export const _Array_indexOf: (searchElement: any, fromIndex?: number) => number;
-    export const _Object_hasOwnProp: (v: string | number | symbol) => boolean;
-    export const _Object_getOwnProp: (o: any, p: string | number | symbol) => PropertyDescriptor;
-    export const _Object_defineProperty: (o: any, p: string | number | symbol, attributes: PropertyDescriptor & ThisType<any>) => any;
+    export const _Object_hasOwnProp: (v: PropertyKey) => boolean;
+    export const _Object_getOwnProp: (o: any, p: PropertyKey) => PropertyDescriptor;
+    export const _Object_defineProperty: <T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>) => T;
     export let _global: any;
     export let _document: any;
     export function setDocument(doc: any): void;
@@ -164,6 +165,13 @@ declare module 'atma-utils/error' {
     export function error_formatCursor(lines: any, lineNum: any, rowNum: any): string;
 }
 
+declare module 'atma-utils/promisify' {
+    import { type class_EventEmitter } from 'atma-utils/class/EventEmitter';
+    export namespace promisify {
+        function fromEvent<TEvents extends Record<keyof TEvents, (...args: any) => any> = any>(ctx: class_EventEmitter<TEvents>, event: keyof TEvents, handlerFn?: () => any | Promise<any>): Promise<unknown>;
+    }
+}
+
 declare module 'atma-utils/class/Dfr' {
     export class class_Dfr<T = any> implements PromiseLike<T> {
         _isAsync: boolean;
@@ -204,7 +212,10 @@ declare module 'atma-utils/class/EventEmitter' {
         };
         on<TKey extends keyof TEvents>(event: TKey, fn: TEvents[TKey]): this;
         once<TKey extends keyof TEvents>(event: TKey, fn: TEvents[TKey]): this;
-        pipe<TKey extends keyof TEvents>(event: TKey): () => void;
+        /**
+          * Returns a function, which when called - triggers the event with the arguments passed to that function
+          */
+        pipe<TKey extends keyof TEvents>(event: TKey): (...args: Parameters<TEvents[TKey]>) => void;
         emit<TKey extends keyof TEvents>(event: TKey, ...args: Parameters<TEvents[TKey]>): this;
         trigger<TKey extends keyof TEvents>(event: TKey, ...args: Parameters<TEvents[TKey]>): this;
         off<TKey extends keyof TEvents>(event: TKey, fn?: Function): this;

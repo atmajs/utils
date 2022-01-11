@@ -1,3 +1,5 @@
+declare let window;
+
 export function is_Function(x): x is Function {
     return typeof x === 'function';
 }
