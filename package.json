@@ -20,7 +20,7 @@
         "atma": "^0.12.28",
         "atma-io": "^1.2.37",
         "atma-loader-babel": ">0.0.0",
-        "atma-loader-ts": "^1.1.12",
+        "atma-loader-ts": "^1.1.16",
         "dts-bundle": "^0.7.3"
     },
     "scripts": {

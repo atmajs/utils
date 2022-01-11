@@ -13,6 +13,7 @@ export * from './fn'
 export * from './str'
 export * from './class'
 export * from './error'
+export * from './promisify'
 
 export * from './class/Dfr'
 export * from './class/EventEmitter'

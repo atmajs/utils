@@ -16,12 +16,26 @@ import {
     obj_clean
 } from './obj';
 
-import { is_Function, is_Array, is_ArrayLike, is_String, is_Object, is_notEmptyString, is_rawObject, is_Date, is_NODE, is_DOM } from './is';
+import {
+    is_Function,
+    is_Array,
+    is_ArrayLike,
+    is_String,
+    is_Object,
+    is_notEmptyString,
+    is_rawObject,
+    is_Date,
+    is_NODE,
+    is_DOM
+} from './is';
+
 import { str_format, str_dedent } from './str';
 import { class_Dfr } from './class/Dfr';
 import { class_Uri } from './class/Uri';
 import { class_EventEmitter } from './class/EventEmitter';
 import { mixin } from './mixin'
+import { promisify  } from './promisify';
+
 
 export const Lib = {
 
@@ -68,5 +82,6 @@ export const Lib = {
 
     str_format,
     str_dedent,
-    mixin
+    mixin,
+    promisify
 };

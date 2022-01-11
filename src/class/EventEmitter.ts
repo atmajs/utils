@@ -20,13 +20,12 @@ export class class_EventEmitter<TEvents extends Record<keyof TEvents, (...args: 
         return this;
     }
 
+    /**
+     * Returns a function, which when called - triggers the event with the arguments passed to that function
+     */
     pipe<TKey extends keyof TEvents>(event: TKey) {
-        var that = this,
-            args;
-        return function () {
-            args = _Array_slice.call(arguments);
-            args.unshift(event);
-            fn_apply(that.trigger, that, args);
+        return (...args: Parameters<TEvents[TKey]>) => {
+            this.emit(event, ...args);
         };
     }
 
