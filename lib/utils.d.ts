@@ -168,7 +168,9 @@ declare module 'atma-utils/error' {
 declare module 'atma-utils/promisify' {
     import { type class_EventEmitter } from 'atma-utils/class/EventEmitter';
     export namespace promisify {
-        function fromEvent<TEvents extends Record<keyof TEvents, (...args: any) => any> = any>(ctx: class_EventEmitter<TEvents>, event: keyof TEvents, handlerFn?: () => any | Promise<any>): Promise<unknown>;
+        function fromEvent<TEvents extends Record<keyof TEvents, (...args: any) => any> = any, TKey extends keyof TEvents = any>(ctx: class_EventEmitter<TEvents>, event: TKey, handlerFn?: (...args: Parameters<TEvents[TKey]>) => any | Promise<any>, options?: {
+            timeout?: number;
+        }): Promise<unknown>;
     }
 }
 
