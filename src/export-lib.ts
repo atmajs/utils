@@ -13,7 +13,8 @@ import {
     obj_extendPropertiesDefaults,
     obj_create,
     obj_defineProperty,
-    obj_clean
+    obj_clean,
+    obj_defaults
 } from './obj';
 
 import {
@@ -68,6 +69,7 @@ export const Lib = {
     obj_create,
     obj_defineProperty,
     obj_clean,
+    obj_defaults,
 
     is_Function,
     is_Array,
