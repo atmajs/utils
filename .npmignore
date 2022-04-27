@@ -11,7 +11,7 @@
 node_modules/
 tools/
 test/
-src/
+
 builds/
 examples/
 ts-temp/
