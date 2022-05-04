@@ -10,6 +10,10 @@ export class class_Dfr <T = any> implements PromiseLike<T> {
     _resolved = null
     _rejected = null
 
+    get [Symbol.toStringTag]() {
+        return 'Promise';
+    }
+
     defer() {
         this._rejected = null;
         this._resolved = null;
