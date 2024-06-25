@@ -1,7 +1,7 @@
 {
     "name": "atma-utils",
     "description": "Helpers",
-    "version": "0.2.60",
+    "version": "0.2.61",
     "author": "Alex Kit <alex.kit@atmajs.com>",
     "repository": {
         "type": "git",
@@ -13,11 +13,17 @@
     "licenses": [
         "MIT"
     ],
-    "main": "lib/utils.js",
+    "main": "lib/umd/utils.js",
     "types": "./lib/utils.d.ts",
+    "exports": {
+        ".": {
+            "import": "./lib/esm/utils.js",
+            "require": "./lib/umd/utils.js"
+        }
+    },
     "devDependencies": {
         "@types/node": "^17.0.8",
-        "app-bundler": "^0.0.94",
+        "app-bundler": "^0.2.6",
         "atma": "^0.12.33",
         "atma-io": "^1.2.37",
         "atma-loader-babel": ">0.0.0",
@@ -40,12 +46,47 @@
                     "moduleWrapper": "script"
                 }
             },
-            "lib": {
+            "umd": {
                 "file": "src/export-lib.ts",
-                "outputMain": "lib/utils.js",
+                "outputMain": "lib/umd/utils.js",
                 "package": {
-                    "moduleWrapper": "custom",
-                    "moduleWrapperCustomPath": "./src/umd/head.js"
+                    "module": "commonjs",
+                    "moduleName": "Utils",
+                    "moduleWrapper": "umd",
+                    "commonjs": {
+                        "output": "simplified"
+                    }
+                },
+                "settings": {
+                    "atma-loader-ts": {
+                        "typescript": {
+                            "compilerOptions": {
+                                "module": "CommonJS",
+                                "target": "ES2015"
+                            }
+                        }
+                    }
+                }
+            },
+            "esm": {
+                "file": "src/export-lib.ts",
+                "outputMain": "lib/esm/utils.mjs",
+                "package": {
+                    "module": "commonjs",
+                    "moduleWrapper": "esm",
+                    "commonjs": {
+                        "output": "simplified"
+                    }
+                },
+                "settings": {
+                    "atma-loader-ts": {
+                        "typescript": {
+                            "compilerOptions": {
+                                "module": "CommonJS",
+                                "target": "ES2015"
+                            }
+                        }
+                    }
                 }
             }
         },
