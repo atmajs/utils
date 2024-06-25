@@ -1,7 +1,7 @@
 {
     "name": "atma-utils",
     "description": "Helpers",
-    "version": "0.2.62",
+    "version": "0.2.63",
     "author": "Alex Kit <alex.kit@atmajs.com>",
     "repository": {
         "type": "git",
@@ -56,16 +56,6 @@
                     "commonjs": {
                         "output": "simplified"
                     }
-                },
-                "settings": {
-                    "atma-loader-ts": {
-                        "typescript": {
-                            "compilerOptions": {
-                                "module": "CommonJS",
-                                "target": "ES2015"
-                            }
-                        }
-                    }
                 }
             },
             "esm": {
@@ -76,16 +66,6 @@
                     "moduleWrapper": "esm",
                     "commonjs": {
                         "output": "simplified"
-                    }
-                },
-                "settings": {
-                    "atma-loader-ts": {
-                        "typescript": {
-                            "compilerOptions": {
-                                "module": "CommonJS",
-                                "target": "ES2015"
-                            }
-                        }
                     }
                 }
             }
@@ -106,6 +86,15 @@
                 "ts": [
                     "atma-loader-ts:read"
                 ]
+            },
+            "settings": {
+                "atma-loader-ts": {
+                    "typescript": {
+                        "compilerOptions": {
+                            "module": "CommonJS"
+                        }
+                    }
+                }
             }
         }
     },
