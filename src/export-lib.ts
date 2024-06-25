@@ -38,7 +38,7 @@ import { mixin } from './mixin'
 import { promisify  } from './promisify';
 
 
-export const Lib = {
+export {
 
     class_Dfr,
     class_EventEmitter,
