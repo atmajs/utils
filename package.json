@@ -1,7 +1,7 @@
 {
     "name": "atma-utils",
     "description": "Helpers",
-    "version": "0.2.64",
+    "version": "0.2.65",
     "author": "Alex Kit <alex.kit@atmajs.com>",
     "repository": {
         "type": "git",
@@ -17,7 +17,7 @@
     "types": "./lib/utils.d.ts",
     "exports": {
         ".": {
-            "import": "./lib/esm/utils.js",
+            "import": "./lib/esm/utils.mjs",
             "require": "./lib/umd/utils.js"
         }
     },
